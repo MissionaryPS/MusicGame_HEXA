@@ -759,7 +759,7 @@ GameObject:
   - component: {fileID: 2056637486}
   - component: {fileID: 2056637487}
   m_Layer: 0
-  m_Name: Keys
+  m_Name: HexKeys
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
