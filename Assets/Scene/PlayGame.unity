@@ -464,6 +464,94 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bcee411d150dfde4bbf6cd6b7a46fe51, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1414176046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1414176050}
+  - component: {fileID: 1414176049}
+  - component: {fileID: 1414176048}
+  - component: {fileID: 1414176047}
+  m_Layer: 0
+  m_Name: ScriptManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1414176047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1414176046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d7af952a65b27a40a8d0802a7881a74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  rend:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  EffColor: {r: 1, g: 0.5, b: 1, a: 1}
+  DefColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1414176048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1414176046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b9de922fbab8e2489e135300b6c8d46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1414176049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1414176046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f86e25a932606b4cadd5adfa545896c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjName:
+  - Key0
+  - Key1
+  - Key2
+  - Key3
+  - Key4
+  - Key5
+  KeyConfig: 760000006400000072000000750000006b0000006e000000
+--- !u!4 &1414176050
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1414176046}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.233188, y: -0.0386413, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1425876905
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,7 +844,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2056637485}
-  - component: {fileID: 2056637486}
   - component: {fileID: 2056637487}
   m_Layer: 0
   m_Name: HexKeys
@@ -784,41 +871,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2056637486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2056637484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d7af952a65b27a40a8d0802a7881a74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  key:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  rend:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  EffColor: {r: 1, g: 0.5, b: 1, a: 1}
-  DefColor: {r: 1, g: 1, b: 1, a: 1}
-  ObjName:
-  - Key0
-  - Key1
-  - Key2
-  - Key3
-  - Key4
-  - Key5
-  KeyConfig: 760000006400000072000000750000006b0000006e000000
 --- !u!212 &2056637487
 SpriteRenderer:
   m_ObjectHideFlags: 0
