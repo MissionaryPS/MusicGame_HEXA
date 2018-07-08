@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class playMain : MonoBehaviour {
 
+    AudioSource music;
     Settings set;
     KeyLight keyEffect;
     bool[] temp = new bool[6];
+    int bpm;
 
     // Use this for initialization
 	void Start () {
+        bpm = 60;
         int i;
-        for (i = 0; i < 6; i++) temp[i] = false;
-        set = GameObject.Find("ScriptManager").GetComponent<Settings>();
-        keyEffect = GameObject.Find("ScriptManager").GetComponent<KeyLight>();
+        for (i = 0; i < 6; i++) temp[i] = false; //キーの初期化
+        set = GameObject.Find("ScriptManager").GetComponent<Settings>(); //各種設定読み込み
+        keyEffect = GameObject.Find("ScriptManager").GetComponent<KeyLight>(); //キーエフェクトの有効化
+        music = GameObject.Find("testMusic").GetComponent<AudioSource>(); //音源読み込み
+        //準備ができたらコルーチンスタート
         StartCoroutine("playMusicGame");
 
     }
@@ -21,9 +26,17 @@ public class playMain : MonoBehaviour {
     IEnumerator playMusicGame()
     {
         Debug.Log("StartCoroutine");
+        bool musicPlaying = true;
+        float playTime;
+        music.PlayDelayed(1.0f);
         while (true)
         {
-            
+            if (musicPlaying)
+            {
+                playTime = music.time;
+                Debug.Log(playTime);
+            }
+
             int i;
             for (i = 0; i < 6; i++)
             {
@@ -37,7 +50,7 @@ public class playMain : MonoBehaviour {
                     }
                     else
                     { 
-                        keyEffect.turnOn(i);
+                        keyEffect.turnOn(i, keyEffect.EffColor);
                         temp[i] = true;
                     }
                 }
@@ -49,7 +62,8 @@ public class playMain : MonoBehaviour {
             }
             yield return new WaitForSeconds(0.03f);
         }
-    }   
+    }
+    
 
 
 }

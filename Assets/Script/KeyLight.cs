@@ -9,6 +9,7 @@ public class KeyLight : MonoBehaviour {
     public Renderer[] rend = new Renderer[6];
     public Color EffColor = new Color(1.0f, 0.5f, 1.0f);
     public Color DefColor = new Color(1.0f, 1.0f, 1.0f);
+    public Color PerColor = new Color(1.0f, 1.0f, 0.1f);
 
     // Use this for initialization
     void Start () {
@@ -24,8 +25,8 @@ public class KeyLight : MonoBehaviour {
 
     }
 
-    public void turnOn(int i) {
-        rend[i].material.SetColor("_EmissionColor", EffColor);
+    public void turnOn(int i, Color color) {
+        rend[i].material.SetColor("_EmissionColor", color);
     }
 
     public void turnOff(int i)
