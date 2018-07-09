@@ -613,6 +613,8 @@ GameObject:
   - component: {fileID: 1414176049}
   - component: {fileID: 1414176048}
   - component: {fileID: 1414176047}
+  - component: {fileID: 1414176052}
+  - component: {fileID: 1414176051}
   m_Layer: 0
   m_Name: ScriptManager
   m_TagString: Untagged
@@ -678,6 +680,7 @@ MonoBehaviour:
   - Key4
   - Key5
   KeyConfig: 760000006400000072000000750000006b0000006e000000
+  notesDelay: 0
 --- !u!4 &1414176050
 Transform:
   m_ObjectHideFlags: 0
@@ -691,6 +694,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1414176051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1414176046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 699476dfbcd95454ea0f7648751ca555, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bpm: 60
+  allTarget: 4656
+--- !u!114 &1414176052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1414176046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e2dfe0ea9a1c5f4e9e4b2980f8a3371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1425876905
 GameObject:
   m_ObjectHideFlags: 0

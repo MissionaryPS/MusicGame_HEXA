@@ -25,11 +25,11 @@ public class KeyLight : MonoBehaviour {
 
     }
 
-    public void turnOn(int i, Color color) {
+    public void TurnOn(int i, Color color) {
         rend[i].material.SetColor("_EmissionColor", color);
     }
 
-    public void turnOff(int i)
+    public void TurnOff(int i)
     {
         rend[i].material.SetColor("_EmissionColor", DefColor);
     }
