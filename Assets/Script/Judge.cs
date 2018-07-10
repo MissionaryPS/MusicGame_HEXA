@@ -6,13 +6,14 @@ public class Judge : MonoBehaviour {
  
     //public int[,] humen = new int[7,48*4*4];
     MusicData data;
-    const float perArea = 0.03f;
+    Settings set;
+    const float perArea = 0.05f;
     const float targetArea = 0.06f;
 
 	// Use this for initialization
 	void Start () {
-        data = GameObject.Find("SpriptManager").GetComponent<MusicData>();
-        
+        data = GameObject.Find("ScriptManager").GetComponent<MusicData>();
+        set = GameObject.Find("ScriptManager").GetComponent<Settings>();
 		
 	}
 	public int OnKey(int key,float time)
@@ -20,15 +21,18 @@ public class Judge : MonoBehaviour {
         Debug.Log("OnkeyStart");
         int i;
         int perS,perE;
-        perS = Time2Notes(time - perArea);
-        perE = Time2Notes(time + perArea);
+        perS = Time2Notes(time - perArea + set.notesDelay);
+        perE = Time2Notes(time + perArea + set.notesDelay);
         Debug.Log(perS);
         Debug.Log(perE);
         for(i = perS; i < perE; i++)
         {
-            if (data.Humen[i, key] > 0)
+            if (data.Humen[key, i] > 0)
             {
-                data.Humen[i, key] = 0;
+                data.Humen[key, i] = 0;
+                Debug.Log("perfect!");
+                Debug.Log(time);
+                Debug.Log(Time2Notes(time));
                 return 1;
             }
         }

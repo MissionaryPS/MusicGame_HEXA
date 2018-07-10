@@ -33,7 +33,7 @@ public class playMain : MonoBehaviour {
             if (musicPlaying)
             {
                 playTime = music.time;
-                Debug.Log(playTime);
+                //Debug.Log(playTime);
             }
 
             int i;
@@ -41,7 +41,7 @@ public class playMain : MonoBehaviour {
             {
                 if (Input.GetKey(set.KeyConfig[i]) != temp[i])
                 {
-                    Debug.Log(i);
+                    //Debug.Log(i);
                     if (temp[i])
                     {
                         keyEffect.TurnOff(i);
