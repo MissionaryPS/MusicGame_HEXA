@@ -48,16 +48,8 @@ public class playMain : MonoBehaviour {
                         temp[i] = false;
                     }
                     else
-                    { 
-                        switch(judge.OnKey(i, playTime))
-                        {
-                            case 1:
-                                keyEffect.TurnOn(i, keyEffect.PerColor);
-                                break;
-                            default:
-                                keyEffect.TurnOn(i, keyEffect.EffColor);
-                                break;
-                        }
+                    {
+                        keyEffect.TurnOn(i, judge.OnKey(i, playTime));
                         temp[i] = true;
                     }
                 }

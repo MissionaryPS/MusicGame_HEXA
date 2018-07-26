@@ -5,11 +5,9 @@ using UnityEngine;
 public class KeyLight : MonoBehaviour {
 
     Settings set;
-    public GameObject[]key = new GameObject[6];
-    public Renderer[] rend = new Renderer[6];
-    public Color EffColor = new Color(1.0f, 0.5f, 1.0f);
-    public Color DefColor = new Color(1.0f, 1.0f, 1.0f);
-    public Color PerColor = new Color(1.0f, 1.0f, 0.1f);
+    private Renderer[] keyColor = new Renderer[6];
+    private Color[] EffColor = new Color[2];  
+    private Color DefColor;
 
     // Use this for initialization
     void Start () {
@@ -17,21 +15,23 @@ public class KeyLight : MonoBehaviour {
         int i; 
         for(i = 0; i < 6; i++) {
             Debug.Log(i);
-            rend[i] = GameObject.Find(set.ObjName[i]).GetComponent<Renderer>();
-            Debug.Log("renderer is gotten");
-            rend[i].material.EnableKeyword("_EMISSION");
-            Debug.Log("emissiona enabled");
+            keyColor[i] = GameObject.Find(set.ObjName[i]).GetComponent<Renderer>();
+            keyColor[i].material.EnableKeyword("_EMISSION");
+            Debug.Log("emission enabled");
+            DefColor = new Color(1.0f, 1.0f, 1.0f);
+            EffColor[0] = new Color(1.0f, 0.5f, 1.0f);
+            EffColor[1] = new Color(1.0f, 1.0f, 0.1f);
         }
 
     }
 
-    public void TurnOn(int i, Color color) {
-        rend[i].material.SetColor("_EmissionColor", color);
+    public void TurnOn(int i, int color) {
+        keyColor[i].material.SetColor("_EmissionColor", EffColor[color]);
     }
 
     public void TurnOff(int i)
     {
-        rend[i].material.SetColor("_EmissionColor", DefColor);
+        keyColor[i].material.SetColor("_EmissionColor", DefColor);
     }
 
 }
