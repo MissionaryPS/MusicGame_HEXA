@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Judge : MonoBehaviour {
+public class Judge : playMain {
  
     //public int[,] humen = new int[7,48*4*4];
     MusicData data;
