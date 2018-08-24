@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyLight : playMain {
+public class KeyLight : MonoBehaviour {
 
     Settings set;
     private Renderer[] keyColor = new Renderer[6];
