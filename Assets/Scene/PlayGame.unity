@@ -615,6 +615,7 @@ GameObject:
   - component: {fileID: 1414176047}
   - component: {fileID: 1414176052}
   - component: {fileID: 1414176051}
+  - component: {fileID: 1414176053}
   m_Layer: 0
   m_Name: ScriptManager
   m_TagString: Untagged
@@ -633,23 +634,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d7af952a65b27a40a8d0802a7881a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  rend:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  EffColor: {r: 1, g: 0.5, b: 1, a: 1}
-  DefColor: {r: 1, g: 1, b: 1, a: 1}
-  PerColor: {r: 1, g: 1, b: 0.1, a: 1}
 --- !u!114 &1414176048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -718,6 +702,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e2dfe0ea9a1c5f4e9e4b2980f8a3371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1414176053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1414176046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b3a78f0f91b32e45855f334af7e8984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshFilter: {fileID: 0}
 --- !u!1 &1425876905
 GameObject:
   m_ObjectHideFlags: 0
