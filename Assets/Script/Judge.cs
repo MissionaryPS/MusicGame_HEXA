@@ -18,13 +18,13 @@ public class Judge : MonoBehaviour {
 	}
 	public int OnKey(int key,float time)
     {
-        Debug.Log("OnkeyStart");
+        //Debug.Log("OnkeyStart");
         int i;
         int perS,perE;
         perS = Time2Notes(time - perArea + set.notesDelay);
         perE = Time2Notes(time + perArea + set.notesDelay);
-        Debug.Log(perS);
-        Debug.Log(perE);
+        //Debug.Log(perS);
+        //Debug.Log(perE);
         for(i = perS; i < perE; i++)
         {
             if (data.Humen[key, i] > 0)
