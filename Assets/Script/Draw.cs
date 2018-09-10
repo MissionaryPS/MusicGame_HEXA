@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshFilter))]
 
-public class Draw : MonoBehaviour {
+public class Draw : playMain {
 
     [SerializeField]
     private GameObject KeyBase; //鍵のprehub
@@ -21,7 +21,9 @@ public class Draw : MonoBehaviour {
     private Color[] EffColor = new Color[2];
     private Color DefColor;
 
- 
+
+
+
 
 
     public void TurnOn(int i, int color)
@@ -35,10 +37,6 @@ public class Draw : MonoBehaviour {
         KeyColor[i].material.SetColor("_EmissionColor", DefColor);
     }
 
-
-
-
-
     //以下、初期化系関数
     private void Start()
     {
@@ -49,7 +47,7 @@ public class Draw : MonoBehaviour {
         }
         for (int i = 0; i < VerticesCount; i++)
         {
-            Key[i] = Instantiate(KeyBase);
+            Key[i] = Instantiate(KeyBase) as GameObject;
             Key[i].GetComponent<MeshFilter>().sharedMesh = SetupKeyMesh(i);
             KeyColor[i] = Key[i].GetComponent<MeshRenderer>();
             KeyColor[i].material.EnableKeyword("_EMISSION");

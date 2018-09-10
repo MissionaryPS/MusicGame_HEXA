@@ -2,27 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Judge : MonoBehaviour {
+public class Judge : playMain {
  
     //public int[,] humen = new int[7,48*4*4];
     MusicData data;
-    Settings set;
     const float perArea = 0.05f;
     const float targetArea = 0.06f;
 
 	// Use this for initialization
 	void Start () {
-        data = GameObject.Find("ScriptManager").GetComponent<MusicData>();
-        set = GameObject.Find("ScriptManager").GetComponent<Settings>();
-		
+        data = gameObject.GetComponent<MusicData>();
+ 		
 	}
 	public int OnKey(int key,float time)
     {
         //Debug.Log("OnkeyStart");
         int i;
         int perS,perE;
-        perS = Time2Notes(time - perArea + set.notesDelay);
-        perE = Time2Notes(time + perArea + set.notesDelay);
+        perS = Time2Notes(time - perArea + notesDelay);
+        perE = Time2Notes(time + perArea + notesDelay);
         //Debug.Log(perS);
         //Debug.Log(perE);
         for(i = perS; i < perE; i++)

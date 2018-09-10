@@ -84,7 +84,6 @@
     <Compile Include="Assets\Script\MusicData.cs" />
     <Compile Include="Assets\Script\playMain.cs" />
     <Compile Include="Assets\Script\Result.cs" />
-    <Compile Include="Assets\Script\Settings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
