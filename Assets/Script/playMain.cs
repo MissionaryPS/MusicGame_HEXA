@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class playMain : MonoBehaviour {
 
-    Settings set;
-    KeyLight keyEffect;
+    AudioSource music;
+    Draw draw;
+    Judge judge;
     bool[] temp = new bool[6];
+    public KeyCode[] KeyConfig = new KeyCode[6] { KeyCode.V, KeyCode.D, KeyCode.R, KeyCode.U, KeyCode.K, KeyCode.N };
+    public float notesDelay = 0.5f;
+
+
 
     // Use this for initialization
-	void Start () {
+    void Start () {
         int i;
-        for (i = 0; i < 6; i++) temp[i] = false;
-        set = GameObject.Find("ScriptManager").GetComponent<Settings>();
-        keyEffect = GameObject.Find("ScriptManager").GetComponent<KeyLight>();
+        for (i = 0; i < 6; i++) temp[i] = false; //キーの初期化
+        judge = gameObject.GetComponent<Judge>(); //判定有効化
+        draw = gameObject.GetComponent<Draw>(); //描画系の有効化
+        music = GameObject.Find("testMusic").GetComponent<AudioSource>(); //音源読み込み
+        //準備ができたらコルーチンスタート
         StartCoroutine("playMusicGame");
 
     }
@@ -21,35 +28,40 @@ public class playMain : MonoBehaviour {
     IEnumerator playMusicGame()
     {
         Debug.Log("StartCoroutine");
+        bool musicPlaying = true;
+        float playTime = -1.0f;
+        music.PlayDelayed(1.0f);
         while (true)
         {
-            
-            int i;
-            for (i = 0; i < 6; i++)
+            if (musicPlaying)
             {
-                if (Input.GetKey(set.KeyConfig[i]) != temp[i])
+                playTime = music.time;
+                //Debug.Log(playTime);
+            }
+
+            
+            for (int i = 0; i < 6; i++)
+            {
+                if (Input.GetKey(KeyConfig[i]) != temp[i])
                 {
-                    Debug.Log(i);
+                    //Debug.Log(i);
                     if (temp[i])
                     {
-                        keyEffect.turnOff(i);
+                        draw.TurnOff(i);
                         temp[i] = false;
                     }
                     else
-                    { 
-                        keyEffect.turnOn(i);
+                    {
+                        draw.TurnOn(i, judge.OnKey(i, playTime));
                         temp[i] = true;
                     }
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Debug.Log("Coroutine end.");
-                yield break;
-            }
+
             yield return new WaitForSeconds(0.03f);
         }
-    }   
+    }
+    
 
 
 }
