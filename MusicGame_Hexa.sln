@@ -17,10 +17,4 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-<<<<<<< HEAD
-=======
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {ADFF1322-32CE-4182-B3DF-0B06BF74F3A0}
-	EndGlobalSection
->>>>>>> parent of 123412b... 全然わからん
 EndGlobal
