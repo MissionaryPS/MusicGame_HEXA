@@ -10,18 +10,14 @@ public class Draw : playMain {
     [SerializeField]
     private GameObject KeyBase; //鍵のprehub
 
-    [SerializeField]
-    private GameObject JudgeLinePrehub;
 
-    [SerializeField]
-    private GameObject LaneLinePrehub;
 
     [SerializeField]
     private int VerticesCount = 6;    //頂点数
 
     private const float KeyRadius = 5f;    //半径
-    private const float HoleRadius = 1.5f;    //半径
-
+    public const float HoleRadius = 1.5f;    //半径
+    
 
     private GameObject[] Key = new GameObject[6];
     private MeshRenderer[] KeyColor = new MeshRenderer[6];
@@ -93,7 +89,11 @@ public class Draw : playMain {
         return mesh;
     }
 
-    private const float JudgePoint = 4.5f;
+
+    [SerializeField]
+    private GameObject JudgeLinePrehub;
+
+    public const float JudgePoint = 4.5f;
     private const float LineWidth = 0.05f;
     private GameObject JudgeLine;
     private void CreateJudgeLine()
@@ -131,6 +131,10 @@ public class Draw : playMain {
         JudgeLine.name = "JudgeLine";
         JudgeLine.GetComponent<MeshFilter>().sharedMesh = mesh;
     }
+
+
+    [SerializeField]
+    private GameObject LaneLinePrehub;
 
     private GameObject LaneLine;
     private void CreateLaneLine()

@@ -1,27 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Linq;
 
 public class playMain : MonoBehaviour {
 
-    AudioSource music;
     Draw draw;
     Judge judge;
+    MusicData data;  
     bool[] temp = new bool[6];
     public KeyCode[] KeyConfig = new KeyCode[6] { KeyCode.V, KeyCode.D, KeyCode.R, KeyCode.U, KeyCode.K, KeyCode.N };
     public float notesDelay = 0.5f;
+    public int[][] map;
+    public int bpm;
+    public int AllTarget;
 
-
+    string select = "easy";
+    string MusicTitle = "metronome";
 
     // Use this for initialization
-    void Start () {
-        int i;
-        for (i = 0; i < 6; i++) temp[i] = false; //キーの初期化
+    IEnumerator Start () {
+        
+        for (int i = 0; i < 6; i++) temp[i] = false; //キーの初期化
         judge = gameObject.GetComponent<Judge>(); //判定有効化
         draw = gameObject.GetComponent<Draw>(); //描画系の有効化
-        music = GameObject.Find("testMusic").GetComponent<AudioSource>(); //音源読み込み
+        data = gameObject.GetComponent<MusicData>();
+        yield return data.StartCoroutine("LoadJson",MusicTitle);
+        data.GetMap(select);
+        foreach (int[] x  in map) 
+        {
+            foreach (int y in x)
+            {
+                Debug.Log(y);
+            }
+        }
         //準備ができたらコルーチンスタート
-        StartCoroutine("playMusicGame");
+        StartCoroutine("LoadMusicData",MusicTitle);
 
     }
 
@@ -35,7 +50,7 @@ public class playMain : MonoBehaviour {
         {
             if (musicPlaying)
             {
-                playTime = music.time;
+                //playTime = music.time;
                 //Debug.Log(playTime);
             }
 
@@ -61,12 +76,31 @@ public class playMain : MonoBehaviour {
             yield return new WaitForSeconds(0.03f);
         }
     }
-    
-    void LoadMusicData()
+
+    [SerializeField]
+    private GameObject MusicPrehub;
+
+    private GameObject MusicSource;
+    private AudioSource music;
+    IEnumerator LoadMusicData(string MusicTitle)
     {
-        
+        MusicSource = Instantiate(MusicPrehub) as GameObject;
+        MusicSource.name = "Speaker";
+        music = MusicSource.GetComponent<AudioSource>();
+        string path = Application.dataPath + "/Resouces/" + MusicTitle + ".wav";
+        using (var www = new WWW("file:///" + path))
+        {
+            yield return www;
+            music.clip = www.GetAudioClip(true, false);
+            yield return StartCoroutine("playMusicGame");
+
+        }
+        yield break;
     }
 
-
+    float Notes2Time(int n, float bpm, float first)
+    {
+        return first + n * (60f / bpm) / 48;
+    }
 
 }
