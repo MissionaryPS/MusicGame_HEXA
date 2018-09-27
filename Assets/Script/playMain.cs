@@ -1,45 +1,63 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Linq;
 
 public class playMain : MonoBehaviour {
 
-    AudioSource music;
-    Draw draw;
-    Judge judge;
+    private Draw draw;
+    private Judge judge;
+    private MusicData data;
+    private AudioSource music;
     bool[] temp = new bool[6];
     public KeyCode[] KeyConfig = new KeyCode[6] { KeyCode.V, KeyCode.D, KeyCode.R, KeyCode.U, KeyCode.K, KeyCode.N };
     public float notesDelay = 0.5f;
+    public int[][] map;
+    public int bpm;
+    public int AllTarget;
 
-
+    string select = "easy";
+    string MusicTitle = "metronome";
 
     // Use this for initialization
-    void Start () {
-        int i;
-        for (i = 0; i < 6; i++) temp[i] = false; //キーの初期化
+    IEnumerator Start () {
+        
+        for (int i = 0; i < 6; i++) temp[i] = false; //キーの初期化
         judge = gameObject.GetComponent<Judge>(); //判定有効化
         draw = gameObject.GetComponent<Draw>(); //描画系の有効化
-        music = GameObject.Find("testMusic").GetComponent<AudioSource>(); //音源読み込み
+        data = gameObject.GetComponent<MusicData>();
+        music = gameObject.GetComponent<AudioSource>();
+        yield return data.StartCoroutine("LoadJson",MusicTitle);
+        data.GetMap(select);
+        foreach (int[] x  in map) 
+        {
+            foreach (int y in x)
+            {
+                Debug.Log(y);
+            }
+        }
         //準備ができたらコルーチンスタート
-        StartCoroutine("playMusicGame");
+        yield return StartCoroutine("LoadMusicData",MusicTitle);
 
     }
 
     IEnumerator playMusicGame()
     {
         Debug.Log("StartCoroutine");
-        bool musicPlaying = true;
         float playTime = -1.0f;
-        music.PlayDelayed(1.0f);
         while (true)
         {
-            if (musicPlaying)
+            if (music.isPlaying)
             {
+                Debug.Log(music.time);
                 playTime = music.time;
-                //Debug.Log(playTime);
             }
+            else
+            {
+                music.Play();
 
-            
+            }
             for (int i = 0; i < 6; i++)
             {
                 if (Input.GetKey(KeyConfig[i]) != temp[i])
@@ -61,12 +79,39 @@ public class playMain : MonoBehaviour {
             yield return new WaitForSeconds(0.03f);
         }
     }
-    
-    void LoadMusicData()
+
+
+    IEnumerator LoadMusicData(string MusicTitle)
     {
-        
+        string path = Application.dataPath + "/Resouces/" + MusicTitle + ".wav";
+        using (var wwwMusic = new WWW("file:///" + path))
+        {
+            yield return wwwMusic;
+            Debug.Log(path);
+            Debug.Log(wwwMusic.isDone);
+            Debug.Log(wwwMusic.url);
+            //music.clip = wwwMusic.GetAudioClip(false, true);
+            Debug.Log(music.clip.loadState);
+            yield return StartCoroutine("WaitPressSpace");
+            music.Play();
+            yield return StartCoroutine("playMusicGame");
+
+        }
+        yield break;
     }
 
+    IEnumerator WaitPressSpace()
+    {
+        while (true)
+        {
+            if (Input.GetKey(KeyCode.Space)) yield break;
+            yield return new WaitForSeconds(0.03f);
+        }
+    }
 
+    float Notes2Time(int n, float bpm, float first)
+    {
+        return first + n * (60f / bpm) / 48;
+    }
 
 }
