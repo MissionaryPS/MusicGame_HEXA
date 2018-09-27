@@ -6,9 +6,10 @@ using System.Linq;
 
 public class playMain : MonoBehaviour {
 
-    Draw draw;
-    Judge judge;
-    MusicData data;  
+    private Draw draw;
+    private Judge judge;
+    private MusicData data;
+    private AudioSource music;
     bool[] temp = new bool[6];
     public KeyCode[] KeyConfig = new KeyCode[6] { KeyCode.V, KeyCode.D, KeyCode.R, KeyCode.U, KeyCode.K, KeyCode.N };
     public float notesDelay = 0.5f;
@@ -26,6 +27,7 @@ public class playMain : MonoBehaviour {
         judge = gameObject.GetComponent<Judge>(); //判定有効化
         draw = gameObject.GetComponent<Draw>(); //描画系の有効化
         data = gameObject.GetComponent<MusicData>();
+        music = gameObject.GetComponent<AudioSource>();
         yield return data.StartCoroutine("LoadJson",MusicTitle);
         data.GetMap(select);
         foreach (int[] x  in map) 
@@ -36,25 +38,26 @@ public class playMain : MonoBehaviour {
             }
         }
         //準備ができたらコルーチンスタート
-        StartCoroutine("LoadMusicData",MusicTitle);
+        yield return StartCoroutine("LoadMusicData",MusicTitle);
 
     }
 
     IEnumerator playMusicGame()
     {
         Debug.Log("StartCoroutine");
-        bool musicPlaying = true;
         float playTime = -1.0f;
-        music.PlayDelayed(1.0f);
         while (true)
         {
-            if (musicPlaying)
+            if (music.isPlaying)
             {
-                //playTime = music.time;
-                //Debug.Log(playTime);
+                Debug.Log(music.time);
+                playTime = music.time;
             }
+            else
+            {
+                music.Play();
 
-            
+            }
             for (int i = 0; i < 6; i++)
             {
                 if (Input.GetKey(KeyConfig[i]) != temp[i])
@@ -77,25 +80,33 @@ public class playMain : MonoBehaviour {
         }
     }
 
-    [SerializeField]
-    private GameObject MusicPrehub;
 
-    private GameObject MusicSource;
-    private AudioSource music;
     IEnumerator LoadMusicData(string MusicTitle)
     {
-        MusicSource = Instantiate(MusicPrehub) as GameObject;
-        MusicSource.name = "Speaker";
-        music = MusicSource.GetComponent<AudioSource>();
         string path = Application.dataPath + "/Resouces/" + MusicTitle + ".wav";
-        using (var www = new WWW("file:///" + path))
+        using (var wwwMusic = new WWW("file:///" + path))
         {
-            yield return www;
-            music.clip = www.GetAudioClip(true, false);
+            yield return wwwMusic;
+            Debug.Log(path);
+            Debug.Log(wwwMusic.isDone);
+            Debug.Log(wwwMusic.url);
+            //music.clip = wwwMusic.GetAudioClip(false, true);
+            Debug.Log(music.clip.loadState);
+            yield return StartCoroutine("WaitPressSpace");
+            music.Play();
             yield return StartCoroutine("playMusicGame");
 
         }
         yield break;
+    }
+
+    IEnumerator WaitPressSpace()
+    {
+        while (true)
+        {
+            if (Input.GetKey(KeyCode.Space)) yield break;
+            yield return new WaitForSeconds(0.03f);
+        }
     }
 
     float Notes2Time(int n, float bpm, float first)

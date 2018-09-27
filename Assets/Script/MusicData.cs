@@ -37,12 +37,14 @@ public class MusicData : playMain {
         {
             yield return www;
             Debug.Log(www.text);
-            mapdata = JsonUtility.FromJson<Data>(www.text);
+            yield return mapdata = JsonUtility.FromJson<Data>(www.text);
         }
+        yield break;
     }
     
     public void GetMap(string SelectLevel)
     {
+        Debug.Log("start get map.");
         LevelInfo level;
         switch (SelectLevel)
         {

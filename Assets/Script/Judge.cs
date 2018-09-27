@@ -42,7 +42,7 @@ public class Judge : playMain {
         int note;
         note = (int)(time * (bpm / 60) * 48);
         if (note < 0) note = 0;
-        if (note > AllTarget) note = AllTarget;
+         if (note > AllTarget) note = AllTarget;
         return note;
     }
 
