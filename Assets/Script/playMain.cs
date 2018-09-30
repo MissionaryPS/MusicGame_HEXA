@@ -1,55 +1,109 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Linq;
 
-public class playMain : MonoBehaviour {
+public class playMain : MainRoot {
 
-    Settings set;
-    KeyLight keyEffect;
-    bool[] temp = new bool[6];
+    private Draw draw;
+    private Judge judge;
+    private MusicData data;
+    private AudioSource music;
+    public int[][] map;
 
     // Use this for initialization
-	void Start () {
-        int i;
-        for (i = 0; i < 6; i++) temp[i] = false;
-        set = GameObject.Find("ScriptManager").GetComponent<Settings>();
-        keyEffect = GameObject.Find("ScriptManager").GetComponent<KeyLight>();
-        StartCoroutine("playMusicGame");
+    IEnumerator Start () {
+        
+        for (int i = 0; i < 6; i++) temp[i] = false; //キーの初期化
+        judge = gameObject.GetComponent<Judge>(); //判定有効化
+        draw = gameObject.GetComponent<Draw>(); //描画系の有効化
+        data = gameObject.GetComponent<MusicData>();
+        music = gameObject.GetComponent<AudioSource>();
+        yield return data.StartCoroutine("LoadJson",MusicTitle);
+        data.GetMap(select);
+        foreach (int[] x  in map) 
+        {
+            foreach (int y in x)
+            {
+                Debug.Log(y);
+            }
+        }
+        //準備ができたらコルーチンスタート
+        yield return StartCoroutine("LoadMusicData",MusicTitle);
 
     }
 
     IEnumerator playMusicGame()
     {
         Debug.Log("StartCoroutine");
+        float playTime = -1.0f;
         while (true)
         {
-            
-            int i;
-            for (i = 0; i < 6; i++)
+            if (music.isPlaying)
             {
-                if (Input.GetKey(set.KeyConfig[i]) != temp[i])
+                Debug.Log(music.time);
+                playTime = music.time;
+            }
+            else
+            {
+                music.Play();
+
+            }
+            for (int i = 0; i < 6; i++)
+            {
+                if (Input.GetKey(KeyConfig[i]) != temp[i])
                 {
-                    Debug.Log(i);
+                    //Debug.Log(i);
                     if (temp[i])
                     {
-                        keyEffect.turnOff(i);
+                        draw.TurnOff(i);
                         temp[i] = false;
                     }
                     else
-                    { 
-                        keyEffect.turnOn(i);
+                    {
+                        draw.TurnOn(i, judge.OnKey(i, playTime));
                         temp[i] = true;
                     }
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Debug.Log("Coroutine end.");
-                yield break;
-            }
+
             yield return new WaitForSeconds(0.03f);
         }
-    }   
+    }
 
+
+    IEnumerator LoadMusicData(string MusicTitle)
+    {
+        string path = Application.dataPath + "/Resouces/" + MusicTitle + ".wav";
+        using (var wwwMusic = new WWW("file:///" + path))
+        {
+            yield return wwwMusic;
+            Debug.Log(path);
+            Debug.Log(wwwMusic.isDone);
+            Debug.Log(wwwMusic.url);
+            //music.clip = wwwMusic.GetAudioClip(false, true);
+            Debug.Log(music.clip.loadState);
+            yield return StartCoroutine("WaitPressSpace");
+            music.Play();
+            yield return StartCoroutine("playMusicGame");
+
+        }
+        yield break;
+    }
+
+    IEnumerator WaitPressSpace()
+    {
+        while (true)
+        {
+            if (Input.GetKey(KeyCode.Space)) yield break;
+            yield return new WaitForSeconds(0.03f);
+        }
+    }
+
+    float Notes2Time(int n, float bpm, float first)
+    {
+        return first + n * (60f / bpm) / 48;
+    }
 
 }
