@@ -4,21 +4,13 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public class playMain : MonoBehaviour {
+public class playMain : MainRoot {
 
     private Draw draw;
     private Judge judge;
     private MusicData data;
     private AudioSource music;
-    bool[] temp = new bool[6];
-    public KeyCode[] KeyConfig = new KeyCode[6] { KeyCode.V, KeyCode.D, KeyCode.R, KeyCode.U, KeyCode.K, KeyCode.N };
-    public float notesDelay = 0.5f;
     public int[][] map;
-    public int bpm;
-    public int AllTarget;
-
-    string select = "easy";
-    string MusicTitle = "metronome";
 
     // Use this for initialization
     IEnumerator Start () {

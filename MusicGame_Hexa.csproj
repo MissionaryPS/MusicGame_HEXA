@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="Assets\Script\Draw.cs" />
     <Compile Include="Assets\Script\Judge.cs" />
+    <Compile Include="Assets\Script\MainRoot.cs" />
     <Compile Include="Assets\Script\MusicData.cs" />
     <Compile Include="Assets\Script\NotesMove.cs" />
     <Compile Include="Assets\Script\playMain.cs" />
