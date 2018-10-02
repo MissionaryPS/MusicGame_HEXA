@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicGame_HEXA", "MusicGame_HEXA.csproj", "{3DB70170-0E8F-26A0-E463-F7B3BB98F16D}"
 EndProject
 Global
