@@ -1,3 +1,50 @@
-﻿{
-	"shinchoku":"damedesu"
+{
+    "music": [
+        {
+            "title": "metronome",
+            "artist": "hogehoge",
+            "scoreMake": "piyo",
+            "Difficulty": {
+                "easy": {
+                    "Level": 1,
+                    "AllTarget": 100
+                },
+                "normal": {
+                    "Level": 1,
+                    "AllTarget": 100
+                },
+                "hard": {
+                    "Level": 1,
+                    "AllTarget": 100
+                }
+            },
+            "bpm": 120,
+            "HiScore": 0,
+            "FileName": "metronome",
+            "JacketFileName": "test.png"
+        },
+        {
+            "title": "metronome",
+            "artist": "hogehoge",
+            "scoreMake": "piyo",
+            "Difficulty": {
+                "easy": {
+                    "Level": 1,
+                    "AllTarget": 100
+                },
+                "normal": {
+                    "Level": 1,
+                    "AllTarget": 100
+                },
+                "hard": {
+                    "Level": 1,
+                    "AllTarget": 100
+                }
+            },
+            "bpm": 120,
+            "HiScore": 0,
+            "FileName": "metronome",
+            "JacketFileName": "test.png"
+        }
+    ]
 }
