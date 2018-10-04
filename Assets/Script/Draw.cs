@@ -8,7 +8,7 @@ using UnityEngine;
 public class Draw : playMain {
 
     [SerializeField]
-    private GameObject KeyBase; //鍵のprehub
+    private GameObject KeyBase; //鍵のprefab
 
 
 
@@ -91,7 +91,7 @@ public class Draw : playMain {
 
 
     [SerializeField]
-    private GameObject JudgeLinePrehub;
+    private GameObject JudgeLineprefab;
 
     public const float JudgePoint = 4.5f;
     private const float LineWidth = 0.05f;
@@ -127,14 +127,14 @@ public class Draw : playMain {
         var mesh = new Mesh();
         mesh.vertices = vertices.ToArray();
         mesh.triangles = index.ToArray();
-        JudgeLine = Instantiate(JudgeLinePrehub) as GameObject;
+        JudgeLine = Instantiate(JudgeLineprefab) as GameObject;
         JudgeLine.name = "JudgeLine";
         JudgeLine.GetComponent<MeshFilter>().sharedMesh = mesh;
     }
 
 
     [SerializeField]
-    private GameObject LaneLinePrehub;
+    private GameObject LaneLinePrefab;
 
     private GameObject LaneLine;
     private void CreateLaneLine()
@@ -173,7 +173,7 @@ public class Draw : playMain {
         var mesh = new Mesh();
         mesh.vertices = vertices.ToArray();
         mesh.triangles = index.ToArray();
-        LaneLine = Instantiate(LaneLinePrehub) as GameObject;
+        LaneLine = Instantiate(LaneLinePrefab) as GameObject;
         LaneLine.name = "LaneLine";
         LaneLine.GetComponent<MeshFilter>().sharedMesh = mesh;
     }

@@ -19,31 +19,23 @@ public class Judge : playMain {
         //Debug.Log("OnkeyStart");
         int i;
         int perS,perE;
-        perS = Time2Notes(time - perArea + notesDelay);
-        perE = Time2Notes(time + perArea + notesDelay);
+        perS = Time2Notes(time - perArea + notesDelay, mapdata.bpm, mapdata.startTime);
+        perE = Time2Notes(time + perArea + notesDelay, mapdata.bpm, mapdata.startTime);
         //Debug.Log(perS);
         //Debug.Log(perE);
         for(i = perS; i < perE; i++)
         {
-            if (map[key][i] > 0)
+            if (levelInfo.map[i].note[key] > 0)
             {
-                map[key][i] = 0;
+                levelInfo.map[i].note[key] *= -1;
                 Debug.Log("perfect!");
                 Debug.Log(time);
-                Debug.Log(Time2Notes(time));
+                Debug.Log(Time2Notes(time, mapdata.bpm, mapdata.startTime));
                 return 1;
             }
         }
         return 0;
     }
 
-	//時間をnノーツ目に変換
-    int Time2Notes(float time) {
-        int note;
-        note = (int)(time * (bpm / 60) * 48);
-        if (note < 0) note = 0;
-         if (note > AllTarget) note = AllTarget;
-        return note;
-    }
 
 }

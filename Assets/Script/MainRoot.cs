@@ -11,7 +11,6 @@ public class MainRoot : MonoBehaviour {
     public float notesDelay = 0.5f;
 
     public int bpm;
-    public int AllTarget;
 
     public string select = "easy";
     public string MusicTitle = "metronome";
