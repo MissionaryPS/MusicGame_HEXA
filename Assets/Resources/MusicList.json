@@ -21,7 +21,7 @@
             "bpm": 120,
             "HiScore": 0,
             "FileName": "metronome",
-            "JacketFileName": "test.png"
+            "JacketFileName": "test"
         },
         {
             "title": "metronome",
@@ -44,7 +44,7 @@
             "bpm": 120,
             "HiScore": 0,
             "FileName": "metronome",
-            "JacketFileName": "test.png"
+            "JacketFileName": "test"
         }
     ]
 }

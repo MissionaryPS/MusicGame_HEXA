@@ -83,10 +83,10 @@
     <Compile Include="Assets\Script\Judge.cs" />
     <Compile Include="Assets\Script\MainRoot.cs" />
     <Compile Include="Assets\Script\MusicData.cs" />
-    <Compile Include="Assets\Script\MusicListLoader.cs" />
     <Compile Include="Assets\Script\NotesMove.cs" />
     <Compile Include="Assets\Script\playMain.cs" />
     <Compile Include="Assets\Script\Result.cs" />
+    <Compile Include="Assets\Script\SelectMain.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

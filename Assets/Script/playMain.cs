@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public class playMain : MainRoot {
+public class PlayMain : MainRoot {
 
     private Draw draw;
     private Judge judge;

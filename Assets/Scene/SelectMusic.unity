@@ -116,6 +116,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1001626799}
+  - component: {fileID: 1001626800}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -136,6 +137,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1001626800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1001626798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea078ec4b1aaab34da869abd4c7f60d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KeyConfig: 760000006400000072000000750000006b0000006e000000
+  temp: 000000000000
+  notesDelay: 0.5
+  bpm: 0
+  AllTarget: 0
+  select: easy
+  MusicTitle: metronome
+  radius: 2
+  HexBase: {fileID: 1565902923023872, guid: 50d08825bfc1c5249a4a710327e6011b, type: 2}
 --- !u!1 &1483211542
 GameObject:
   m_ObjectHideFlags: 0

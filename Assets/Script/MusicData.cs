@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public class MusicData : playMain {
+public class MusicData : PlayMain {
     [Serializable]
     public class Data
     {
