@@ -9,9 +9,7 @@ public class Draw : PlayMain {
 
     [SerializeField]
     private GameObject KeyBase; //鍵のprehub
-
-
-
+    
     [SerializeField]
     private int VerticesCount = 6;    //頂点数
 
@@ -58,6 +56,7 @@ public class Draw : PlayMain {
         EffColor[0] = new Color(1.0f, 0.5f, 1.0f);
         EffColor[1] = new Color(1.0f, 1.0f, 0.1f);
     }
+
 
     private Mesh SetupKeyMesh(int i)
     {

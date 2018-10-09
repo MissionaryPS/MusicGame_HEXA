@@ -149,10 +149,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KeyConfig: 760000006400000072000000750000006b0000006e000000
-  temp: 000000000000
+  isOnKey: 0000000000000000
   notesDelay: 0.5
   bpm: 0
   AllTarget: 0
+  fps: 0.033333335
   select: easy
   MusicTitle: metronome
   radius: 2

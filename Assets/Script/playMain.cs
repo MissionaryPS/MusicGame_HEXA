@@ -15,7 +15,7 @@ public class PlayMain : MainRoot {
     // Use this for initialization
     IEnumerator Start () {
         
-        for (int i = 0; i < 6; i++) temp[i] = false; //キーの初期化
+        for (int i = 0; i < 6; i++) isOnKey[i] = false; //キーの初期化
         judge = gameObject.GetComponent<Judge>(); //判定有効化
         draw = gameObject.GetComponent<Draw>(); //描画系の有効化
         data = gameObject.GetComponent<MusicData>();
@@ -52,18 +52,18 @@ public class PlayMain : MainRoot {
             }
             for (int i = 0; i < 6; i++)
             {
-                if (Input.GetKey(KeyConfig[i]) != temp[i])
+                if (Input.GetKey(KeyConfig[i]) != isOnKey[i])
                 {
                     //Debug.Log(i);
-                    if (temp[i])
+                    if (isOnKey[i])
                     {
                         draw.TurnOff(i);
-                        temp[i] = false;
+                        isOnKey[i] = false;
                     }
                     else
                     {
                         draw.TurnOn(i, judge.OnKey(i, playTime));
-                        temp[i] = true;
+                        isOnKey[i] = true;
                     }
                 }
             }
