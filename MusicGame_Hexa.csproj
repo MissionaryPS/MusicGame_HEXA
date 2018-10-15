@@ -79,6 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\ButtonMaterial.cs" />
     <Compile Include="Assets\Script\Draw.cs" />
     <Compile Include="Assets\Script\Judge.cs" />
     <Compile Include="Assets\Script\MainRoot.cs" />

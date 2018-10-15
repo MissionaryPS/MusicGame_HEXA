@@ -11,7 +11,6 @@ public class SelectMain : MainRoot {
     {
         public Music[] music;
     }
-
     [Serializable]
     public class Music
     {
@@ -24,7 +23,6 @@ public class SelectMain : MainRoot {
         public string FileName;
         public string JacketFileName;
     }
-
     [Serializable]
     public class Difficulty
     {
@@ -32,7 +30,6 @@ public class SelectMain : MainRoot {
         public LevelInfo normal;
         public LevelInfo hard;
     }
-
     [Serializable]
     public class LevelInfo
     {
@@ -43,12 +40,20 @@ public class SelectMain : MainRoot {
     [SerializeField]
     float radius;
 
-    MusicList musicList;
+    public MusicList musicList;
+    public List<Material> ButtonSurface = new List<Material>();
+    [SerializeField]
+    public Material nomusic;
+    [SerializeField]
+    public Material existmusic;
+
+    private ButtonMaterial Button;
 
     IEnumerator Start () {
         yield return StartCoroutine("LoadList");
+        Button = gameObject.GetComponent<ButtonMaterial>();
         foreach (Music music in musicList.music) Debug.Log(music.title);
-
+        Debug.Log(musicList.music.Length + "musics load");
 
         //このへんに描画
         float CRadius = radius * Mathf.Sin(60 * Mathf.Deg2Rad) * 2;
@@ -62,49 +67,45 @@ public class SelectMain : MainRoot {
                 float cx = CRadius * Mathf.Cos(rad);
                 float cy = CRadius * Mathf.Sin(rad);
                 
-                MenuButton[j++] = CreateHexagon(new Vector3(cx, cy, 0), radius - 0.1f);
+                MenuButton[j++] = CreateHexagon(new Vector3(cx, cy, -1), radius);
             }
         }
 
-        GameObject[] MusicButton = new GameObject[musicList.music.Length + 2];
-        for (int i = 0; i < musicList.music.Length + 2; i++) {
-            MusicButton[i] = CreateHexagon(new Vector3(CRadius * (i - 1) , 0, 0) , radius);
-            MusicButton[i].GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-            if (i == 0 || i == musicList.music.Length)
-            {
-                MusicButton[0].GetComponent<MeshRenderer>().material.SetColor("_EMISSION", new Color(0, 0, 0));
-            }
+        int center = 1;
+        GameObject[] MusicButton = new GameObject[7];
+        for (int i = 0; i < 7; i++)
+        {
+            MusicButton[i] = CreateHexagon(new Vector3(CRadius * (i - 3), 0, 0), radius - 0.1f);
+            //MusicButton[i].GetComponent<ButtonMaterial>().SetUpPosition(i - 3, center);
         }
 
+        //選択処理開始
         while (true)
         {
             if (!(isOnKey[1]) && Input.GetKey(KeyConfig[1]))
             {
-                 for(int i = 0; i < MusicButton.Length; i++)
-                {
-                    var mesh = MusicButton[i].GetComponent<MeshFilter>().mesh;
-                    mesh.SetVertices(CalcVertices(mesh.vertices[0] - new Vector3(CRadius, 0), radius));
-                }
+                center--;
+                foreach (GameObject Button in MusicButton)
+                    Button.GetComponent<ButtonMaterial>().ChangeMaterial(center);
+                
             }
             if (!(isOnKey[4]) && Input.GetKey(KeyConfig[4]))
             {
                 for (int i = 0; i < MusicButton.Length; i++)
                 {
-                    var mesh = MusicButton[i].GetComponent<MeshFilter>().mesh;
-                    mesh.SetVertices(CalcVertices(mesh.vertices[0] + new Vector3(CRadius, 0), radius));
+                    center++;
+                    foreach (GameObject Button in MusicButton)
+                        Button.GetComponent<ButtonMaterial>().ChangeMaterial(center);
                 }
             }
-
+            //if (!(isOnKey[7]) && Input.GetKey(KeyConfig[7])) yield break;
+     
 
             for (int i = 0; i < KeyConfig.Length; i++) isOnKey[i] = Input.GetKey(KeyConfig[i]);
             yield return new WaitForSeconds(fps);
         }
 
     }
-
-
-
-
 
     //読み込み系統
     IEnumerator LoadList()
@@ -162,5 +163,7 @@ public class SelectMain : MainRoot {
         }
         return vertices;
     }
+
+
 
 }

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6670a423d35e7b041971cda9eacfeed4
+timeCreated: 1539573757
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - nomusic: {fileID: 2100000, guid: 3b3f780493534164898879ad9b260dec, type: 2}
+  - HexBase: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

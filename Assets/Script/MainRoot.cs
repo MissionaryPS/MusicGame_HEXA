@@ -18,11 +18,15 @@ public class MainRoot : MonoBehaviour {
     public string select = "easy";
     public string MusicTitle = "metronome";
 
+    SelectMain selectProcess;
+
     // Use this for initialization
     void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	
+        selectProcess = gameObject.GetComponent<SelectMain>();
+
+        //selectProcess.StartCoroutine("SelectMusic");
+    }
+    
+    // Update is called once per frame
+
 }

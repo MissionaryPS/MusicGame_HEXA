@@ -117,6 +117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1001626799}
   - component: {fileID: 1001626800}
+  - component: {fileID: 1001626801}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -157,7 +158,31 @@ MonoBehaviour:
   select: easy
   MusicTitle: metronome
   radius: 2
+  musicList:
+    music: []
+  ButtonSurface: []
+  nomusic: {fileID: 2100000, guid: 3b3f780493534164898879ad9b260dec, type: 2}
+  existmusic: {fileID: 2100000, guid: 88def13cd59a66f4295f49e5d661f653, type: 2}
   HexBase: {fileID: 1565902923023872, guid: 50d08825bfc1c5249a4a710327e6011b, type: 2}
+--- !u!114 &1001626801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1001626798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03dddeb1bb3bdc3428dfb6d4971e0af0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KeyConfig: 760000006400000072000000750000006b0000006e000000200000001b000000
+  isOnKey: 0000000000000000
+  notesDelay: 0.5
+  bpm: 0
+  AllTarget: 0
+  fps: 0.033333335
+  select: easy
+  MusicTitle: metronome
 --- !u!1 &1483211542
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +243,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

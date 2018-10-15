@@ -1,9 +1,9 @@
 ﻿<Properties StartupItem="MusicGame_HEXA.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\shinchoku.json">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\ButtonMaterial.cs">
     <Files>
       <File FileName="Assets\Script\Judge.cs" Line="21" Column="1" />
-      <File FileName="Assets\Resources\shinchoku.json" Line="1" Column="1" />
+      <File FileName="Assets\Script\ButtonMaterial.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
