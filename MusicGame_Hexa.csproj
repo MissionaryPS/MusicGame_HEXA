@@ -84,7 +84,7 @@
     <Compile Include="Assets\Script\MainRoot.cs" />
     <Compile Include="Assets\Script\MusicData.cs" />
     <Compile Include="Assets\Script\NotesMove.cs" />
-    <Compile Include="Assets\Script\playMain.cs" />
+    <Compile Include="Assets\Script\PlayMain.cs" />
     <Compile Include="Assets\Script\Result.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

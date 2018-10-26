@@ -4,33 +4,62 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public class playMain : MainRoot {
+public class PlayMain : MainRoot {
+    [Serializable]
+    public class Data
+    {
+        public int bpm;
+        public int startTime;
+        public Difficulty difficulty;
+    }
+    [Serializable]
+    public class Difficulty
+    {
+        public LevelInfo easy;
+        public LevelInfo normal;
+        public LevelInfo hard;
+    }
+    [Serializable]
+    public class LevelInfo
+    {
+        public int level;
+        public int allTarget;
+        public Map[] map;
+    }
+    [Serializable]
+    public class Map
+    {
+        public int timing;
+        public int[] note;
+        public bool isHead;
+    }
 
+    //読みこみクラス
     private Draw draw;
     private Judge judge;
     private MusicData data;
     private AudioSource music;
-    public int[][] map;
+ 
+
+    public Data mapdata;
+    public LevelInfo levelInfo;
+    public float speed;
 
     // Use this for initialization
-    IEnumerator Start () {
-        
+    IEnumerator Start() {
+        Debug.Log("playMain start.");
         for (int i = 0; i < 6; i++) temp[i] = false; //キーの初期化
         judge = gameObject.GetComponent<Judge>(); //判定有効化
         draw = gameObject.GetComponent<Draw>(); //描画系の有効化
         data = gameObject.GetComponent<MusicData>();
         music = gameObject.GetComponent<AudioSource>();
-        yield return data.StartCoroutine("LoadJson",MusicTitle);
-        data.GetMap(select);
-        foreach (int[] x  in map) 
-        {
-            foreach (int y in x)
-            {
+        yield return data.StartCoroutine("LoadJson", MusicTitle);
+        levelInfo = data.GetMap(select);
+        foreach (Map x in levelInfo.map)
+            foreach (int y in x.note)
                 Debug.Log(y);
-            }
-        }
         //準備ができたらコルーチンスタート
-        yield return StartCoroutine("LoadMusicData",MusicTitle);
+        yield return StartCoroutine("LoadMusicData", MusicTitle);
 
     }
 
@@ -45,11 +74,9 @@ public class playMain : MainRoot {
                 Debug.Log(music.time);
                 playTime = music.time;
             }
-            else
-            {
-                music.Play();
 
-            }
+
+
             for (int i = 0; i < 6; i++)
             {
                 if (Input.GetKey(KeyConfig[i]) != temp[i])
@@ -96,14 +123,31 @@ public class playMain : MainRoot {
     {
         while (true)
         {
+            for(int i = 0; i < 6; i++) if (Input.GetKeyDown(KeyConfig[i])) CreateNotes(0, i);
             if (Input.GetKey(KeyCode.Space)) yield break;
-            yield return new WaitForSeconds(0.03f);
+            yield return new WaitForSeconds(fps);
         }
     }
 
-    float Notes2Time(int n, float bpm, float first)
+    public float Notes2Time(int n, int bpm, float firstTime)
     {
-        return first + n * (60f / bpm) / 48;
+        return firstTime + n * (60f / bpm) / 48;
     }
+
+    //時間をnノーツ目に変換
+    public int Time2Notes(float time, int bpm, float firstTime)
+    {
+        return (int)((time - firstTime) * (bpm / 60) * 48);
+    }
+
+    [SerializeField]
+    GameObject NotePrefab;
+    void CreateNotes(int n, int key)
+    {
+        GameObject note;
+        note = Instantiate(NotePrefab) as GameObject;
+        note.GetComponent<NotesMove>().SetNotesData(n,key,draw.Holeradius,0.1f);
+    }
+
 
 }

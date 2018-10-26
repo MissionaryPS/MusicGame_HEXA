@@ -4,33 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public class MusicData : playMain {
-    [Serializable]
-    public class Data
-    {
-        public int bpm;
-        public int startTime;
-        public Difficulty difficulty;
-    }
-
-    [Serializable]
-    public class Difficulty
-    {
-        public LevelInfo easy;
-        public LevelInfo normal;
-        public LevelInfo hard;
-    }
-
-    [Serializable]
-    public class LevelInfo
-    {
-        public int level;
-        public int AllTarget;
-        public string[] map;
-    }
-
-
-    public Data mapdata;
+public class MusicData : PlayMain {
     IEnumerator LoadJson(string MusicTitle)
     {
         using (var www = new WWW("file:///" + Application.dataPath + "/Resources/" + MusicTitle + ".json"))
@@ -42,27 +16,15 @@ public class MusicData : playMain {
         yield break;
     }
     
-    public void GetMap(string SelectLevel)
+    public LevelInfo GetMap(string SelectLevel)
     {
         Debug.Log("start get map.");
-        LevelInfo level;
         switch (SelectLevel)
         {
-            case "easy": level = mapdata.difficulty.easy; break;
-            case "normal": level = mapdata.difficulty.normal; break;
-            case "hard": level = mapdata.difficulty.hard; break;
-            default : return;
-        }
-        map = new int[level.map.Length][];
-        for(int i = 0; i < level.map.Length; i++)
-        {
-            var temp =  level.map[i].Split(',').Select(int.Parse).ToArray();
-            map[i] = new int[7];
-            Array.Copy(temp, map[i], 7);
-        }
-        Debug.Log("retmap clear");
+            case "easy": return mapdata.difficulty.easy;
+            case "normal": return mapdata.difficulty.normal;
+            case "hard": return mapdata.difficulty.hard;
+            default : return null;
+        }   
     }
-
- 
-
 }
