@@ -5,13 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshFilter))]
 
-public class Draw : playMain {
+public class Draw : PlayMain {
 
     [SerializeField]
     private GameObject KeyBase; //鍵のprefab
-
-
-
     [SerializeField]
     private int VerticesCount = 6;    //頂点数
 

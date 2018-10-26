@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public class playMain : MainRoot {
+public class PlayMain : MainRoot {
     [Serializable]
     public class Data
     {
@@ -34,14 +34,16 @@ public class playMain : MainRoot {
         public bool isHead;
     }
 
+    //読みこみクラス
     private Draw draw;
     private Judge judge;
     private MusicData data;
     private AudioSource music;
+ 
 
     public Data mapdata;
     public LevelInfo levelInfo;
-
+    public float speed;
 
     // Use this for initialization
     IEnumerator Start() {
@@ -121,8 +123,9 @@ public class playMain : MainRoot {
     {
         while (true)
         {
+            for(int i = 0; i < 6; i++) if (Input.GetKeyDown(KeyConfig[i])) CreateNotes(0, i);
             if (Input.GetKey(KeyCode.Space)) yield break;
-            yield return new WaitForSeconds(0.03f);
+            yield return new WaitForSeconds(fps);
         }
     }
 
@@ -143,7 +146,7 @@ public class playMain : MainRoot {
     {
         GameObject note;
         note = Instantiate(NotePrefab) as GameObject;
-        note.GetComponent<NotesMove>().SetNotesData(key,n);
+        note.GetComponent<NotesMove>().SetNotesData(n,key,draw.Holeradius,0.1f);
     }
 
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public class MusicData : playMain {
+public class MusicData : PlayMain {
     IEnumerator LoadJson(string MusicTitle)
     {
         using (var www = new WWW("file:///" + Application.dataPath + "/Resources/" + MusicTitle + ".json"))
