@@ -55,9 +55,11 @@ public class PlayMain : MainRoot {
         music = gameObject.GetComponent<AudioSource>();
         yield return data.StartCoroutine("LoadJson", MusicTitle);
         levelInfo = data.GetMap(select);
+        /*
         foreach (Map x in levelInfo.map)
             foreach (int y in x.note)
                 Debug.Log(y);
+                */
         //準備ができたらコルーチンスタート
         yield return StartCoroutine("LoadMusicData", MusicTitle);
 
@@ -89,6 +91,7 @@ public class PlayMain : MainRoot {
                     }
                     else
                     {
+                        draw.CreateNotes(0, i);
                         draw.TurnOn(i, judge.OnKey(i, playTime));
                         temp[i] = true;
                     }
@@ -123,7 +126,6 @@ public class PlayMain : MainRoot {
     {
         while (true)
         {
-            for(int i = 0; i < 6; i++) if (Input.GetKeyDown(KeyConfig[i])) CreateNotes(0, i);
             if (Input.GetKey(KeyCode.Space)) yield break;
             yield return new WaitForSeconds(fps);
         }
@@ -140,14 +142,7 @@ public class PlayMain : MainRoot {
         return (int)((time - firstTime) * (bpm / 60) * 48);
     }
 
-    [SerializeField]
-    GameObject NotePrefab;
-    void CreateNotes(int n, int key)
-    {
-        GameObject note;
-        note = Instantiate(NotePrefab) as GameObject;
-        note.GetComponent<NotesMove>().SetNotesData(n,key,draw.Holeradius,0.1f);
-    }
+
 
 
 }

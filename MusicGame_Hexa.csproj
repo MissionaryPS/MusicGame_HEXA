@@ -79,12 +79,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Script\Draw.cs" />
-    <Compile Include="Assets\Script\Judge.cs" />
     <Compile Include="Assets\Script\MainRoot.cs" />
-    <Compile Include="Assets\Script\MusicData.cs" />
-    <Compile Include="Assets\Script\NotesMove.cs" />
-    <Compile Include="Assets\Script\PlayMain.cs" />
+    <Compile Include="Assets\Script\Play\Draw.cs" />
+    <Compile Include="Assets\Script\Play\Judge.cs" />
+    <Compile Include="Assets\Script\Play\MusicData.cs" />
+    <Compile Include="Assets\Script\Play\NotesMove.cs" />
+    <Compile Include="Assets\Script\Play\PlayMain.cs" />
     <Compile Include="Assets\Script\Result.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

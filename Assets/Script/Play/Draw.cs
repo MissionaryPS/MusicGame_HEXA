@@ -174,4 +174,14 @@ public class Draw : PlayMain {
         LaneLine.name = "LaneLine";
         LaneLine.GetComponent<MeshFilter>().sharedMesh = mesh;
     }
+    [SerializeField]
+    GameObject NotePrefab;
+    public void CreateNotes(int n, int key)
+    {
+        GameObject note;
+        note = Instantiate(NotePrefab) as GameObject;
+        note.GetComponent<NotesMove>().SetNotesData(n, key, 1.5f, 0.1f);
+        note.GetComponent<NotesMove>().StartCoroutine("Move");
+
+    }
 }

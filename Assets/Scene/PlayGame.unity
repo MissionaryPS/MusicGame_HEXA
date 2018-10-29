@@ -247,13 +247,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1414176050}
-  - component: {fileID: 1414176052}
-  - component: {fileID: 1414176051}
   - component: {fileID: 1414176054}
   - component: {fileID: 1414176053}
-  - component: {fileID: 1414176047}
-  - component: {fileID: 1414176049}
   - component: {fileID: 1414176048}
+  - component: {fileID: 1414176055}
+  - component: {fileID: 1414176052}
+  - component: {fileID: 1414176051}
+  - component: {fileID: 1414176049}
+  - component: {fileID: 1414176047}
   m_Layer: 0
   m_Name: ScriptManager
   m_TagString: Untagged
@@ -269,7 +270,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1414176046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b3a78f0f91b32e45855f334af7e8984, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b9de922fbab8e2489e135300b6c8d46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   KeyConfig: 760000006400000072000000750000006b0000006e000000
@@ -299,13 +300,7 @@ MonoBehaviour:
     allTarget: 0
     map: []
   speed: 0
-  NotePrefab: {fileID: 1594203870140092, guid: 7c2b108e2ce433a4cb6fcc1b1b997625, type: 2}
-  KeyBase: {fileID: 1565902923023872, guid: 50d08825bfc1c5249a4a710327e6011b, type: 2}
-  VerticesCount: 6
-  JudgeLineprefab: {fileID: 1685848686752052, guid: 0ef3bc39ca3ae37459eb6d8cc39e9d31,
-    type: 2}
-  LaneLinePrefab: {fileID: 1872868301545456, guid: ba91d6a1ae45eea46a524410774fa7ae,
-    type: 2}
+  NotePrefab: {fileID: 1555136900619736, guid: 7c2b108e2ce433a4cb6fcc1b1b997625, type: 2}
 --- !u!82 &1414176048
 AudioSource:
   m_ObjectHideFlags: 0
@@ -394,7 +389,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1414176046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b9de922fbab8e2489e135300b6c8d46, type: 3}
+  m_Script: {fileID: 11500000, guid: d33a9c1c1f83033409dceb73ce161da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   KeyConfig: 760000006400000072000000750000006b0000006e000000
@@ -424,7 +419,7 @@ MonoBehaviour:
     allTarget: 0
     map: []
   speed: 0
-  NotePrefab: {fileID: 1555136900619736, guid: 7c2b108e2ce433a4cb6fcc1b1b997625, type: 2}
+  NotePrefab: {fileID: 0}
 --- !u!4 &1414176050
 Transform:
   m_ObjectHideFlags: 0
@@ -555,3 +550,48 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1414176046}
   m_Mesh: {fileID: 0}
+--- !u!114 &1414176055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1414176046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b3a78f0f91b32e45855f334af7e8984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KeyConfig: 760000006400000072000000750000006b0000006e000000
+  temp: 000000000000
+  notesDelay: 0.5
+  fps: 0.033333335
+  select: easy
+  MusicTitle: metronome
+  mapdata:
+    bpm: 0
+    startTime: 0
+    difficulty:
+      easy:
+        level: 0
+        allTarget: 0
+        map: []
+      normal:
+        level: 0
+        allTarget: 0
+        map: []
+      hard:
+        level: 0
+        allTarget: 0
+        map: []
+  levelInfo:
+    level: 0
+    allTarget: 0
+    map: []
+  speed: 0
+  NotePrefab: {fileID: 1555136900619736, guid: 7c2b108e2ce433a4cb6fcc1b1b997625, type: 2}
+  KeyBase: {fileID: 1565902923023872, guid: 50d08825bfc1c5249a4a710327e6011b, type: 2}
+  VerticesCount: 6
+  JudgeLineprefab: {fileID: 1685848686752052, guid: 0ef3bc39ca3ae37459eb6d8cc39e9d31,
+    type: 2}
+  LaneLinePrefab: {fileID: 1872868301545456, guid: ba91d6a1ae45eea46a524410774fa7ae,
+    type: 2}
