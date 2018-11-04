@@ -5,16 +5,18 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshFilter))]
 
-public class Draw : PlayMain {
+public class Draw : MainRoot {
 
     [SerializeField]
     private GameObject KeyBase; //鍵のprefab
     [SerializeField]
     private int VerticesCount = 6;    //頂点数
 
-    private const float KeyRadius = 5f;    //半径
-    public const float HoleRadius = 1.5f;    //半径
-    
+    private const float KeyRadius = 5.5f;    //半径
+    public const float HoleRadius = 1.2f;    //半径
+    public const float JudgePoint = 4.8f;
+
+
 
     private GameObject[] Key = new GameObject[6];
     private MeshRenderer[] KeyColor = new MeshRenderer[6];
@@ -28,7 +30,7 @@ public class Draw : PlayMain {
 
     public void TurnOff(int i)
     {
-        Debug.Log("TurnOff:" + i);
+        //Debug.Log("TurnOff:" + i);
         KeyColor[i].material.SetColor("_EmissionColor", DefColor);
     }
 
@@ -90,7 +92,6 @@ public class Draw : PlayMain {
     [SerializeField]
     private GameObject JudgeLineprefab;
 
-    public const float JudgePoint = 4.5f;
     private const float LineWidth = 0.05f;
     private GameObject JudgeLine;
     private void CreateJudgeLine()
@@ -180,7 +181,7 @@ public class Draw : PlayMain {
     {
         GameObject note;
         note = Instantiate(NotePrefab) as GameObject;
-        note.GetComponent<NotesMove>().SetNotesData(n, key, 1.5f, 0.1f);
+        note.GetComponent<NotesMove>().SetNotesData(n, key, HoleRadius, 0.1f);
         note.GetComponent<NotesMove>().StartCoroutine("Move");
 
     }

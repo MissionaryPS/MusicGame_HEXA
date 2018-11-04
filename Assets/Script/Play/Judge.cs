@@ -6,12 +6,6 @@ public class Judge : PlayMain {
  
     //public int[,] humen = new int[7,48*4*4];
    
-
-	// Use this for initialization
-	void Start () {
-   	
-	}
-
     const float perArea = 0.05f;
     const float targetArea = 0.06f;
     public int OnKey(int key,float time)

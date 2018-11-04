@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\MainRoot.cs" />
+    <Compile Include="Assets\Script\Play\BeginPlayGame.cs" />
     <Compile Include="Assets\Script\Play\Draw.cs" />
     <Compile Include="Assets\Script\Play\Judge.cs" />
     <Compile Include="Assets\Script\Play\MusicData.cs" />

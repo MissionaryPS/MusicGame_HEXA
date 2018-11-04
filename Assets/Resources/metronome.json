@@ -3,27 +3,27 @@
     "startTime": 4,
     "difficulty": {
         "easy": {
-            "level": 1,
-            "allTarget": 4,
+            "level": 3,
+            "allTarget": 222,
             "map": [
                 {
                     "timing": 0,
-                    "note": [ 0, 0, 0, 0, 0, 0, 1 ],
+                    "note": [ 0, 0, 0, 0, 0, 0],
                     "isHead": true
                 },
                 {
                     "timing": 11,
-                    "note": [ 0, 0, 0, 0, 0, 0, 1 ],
+                    "note": [ 0, 0, 0, 0, 0, 0],
                     "isHead": false
                 },
                 {
                     "timing": 24,
-                    "note": [ 0, 0, 0, 0, 0, 0, 1 ],
+                    "note": [ 0, 0, 0, 0, 0, 0],
                     "isHead": true
                 },
                 {
                     "timing": 27,
-                    "note": [ 0, 0, 0, 0, 0, 0, 1 ],
+                    "note": [ 0, 0, 0, 0, 0, 0],
                     "isHead": false
                 }
             ]
@@ -34,22 +34,22 @@
             "map": [
                 {
                     "timing": 0,
-                    "note": [ 0, 0, 0, 0, 0, 0, 1 ],
+                    "note": [ 0, 0, 0, 0, 0, 0],
                     "isHead": true
                 },
                 {
                     "timing": 11,
-                    "note": [ 0, 0, 0, 0, 0, 0, 1 ],
+                    "note": [ 0, 0, 0, 0, 0, 0],
                     "isHead": false
                 },
                 {
                     "timing": 24,
-                    "note": [ 0, 0, 0, 0, 0, 0, 1 ],
+                    "note": [ 0, 0, 0, 0, 0, 0 ],
                     "isHead": true
                 },
                 {
                     "timing": 27,
-                    "note": [ 0, 0, 0, 0, 0, 0, 1 ],
+                    "note": [ 0, 0, 0, 0, 0, 0],
                     "isHead": false
                 }
             ]
@@ -60,22 +60,22 @@
             "map": [
                 {
                     "timing": 0,
-                    "note": [ 0, 0, 0, 0, 0, 0, 1 ],
+                    "note": [ 0, 0, 0, 0, 0, 0],
                     "isHead": true
                 },
                 {
                     "timing": 11,
-                    "note": [ 0, 0, 0, 0, 0, 0, 1 ],
+                    "note": [ 0, 0, 0, 0, 0, 0 ],
                     "isHead": false
                 },
                 {
                     "timing": 24,
-                    "note": [ 0, 0, 0, 0, 0, 0, 1 ],
+                    "note": [ 0, 0, 0, 0, 0, 0],
                     "isHead": true
                 },
                 {
                     "timing": 27,
-                    "note": [ 0, 0, 0, 0, 0, 0, 1 ],
+                    "note": [ 0, 0, 0, 0, 0, 0],
                     "isHead": false
                 }
             ]

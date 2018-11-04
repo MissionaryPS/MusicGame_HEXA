@@ -10,14 +10,12 @@ public class MainRoot : MonoBehaviour {
     public bool[] temp = new bool[6];
     public float notesDelay = 0.5f;
     public float fps = 1.0f / 30;
-    
-    public string select = "easy";
-    public string MusicTitle = "metronome";
 
+    public bool LoadData = false;
 
     // Use this for initialization
     void Start () {
-		
+        
 	}
 	
 	// Update is called once per frame
