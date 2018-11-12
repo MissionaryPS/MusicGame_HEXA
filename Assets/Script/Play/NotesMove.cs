@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NotesMove : PlayMain {
+public class NotesMove : MainRoot {
 
+    private TimeLine timeLine;
     private float Radius;
     private float Speed;
     private int Key;
@@ -15,10 +16,11 @@ public class NotesMove : PlayMain {
 
     public void SetNotesData(int n, int key, float StartRadius, float BaseSpeed)
     {
+        timeLine = GameObject.Find("ScriptManager").GetComponent<TimeLine>(); 
         Radius = StartRadius;
         Speed = BaseSpeed;
         Key = key;
-        //NTime = n;
+        NTime = n;
         //頂点インデクス
         List<int> triangles = new List<int>();
         triangles.Add(0);
@@ -44,7 +46,7 @@ public class NotesMove : PlayMain {
             var mesh = gameObject.GetComponent<MeshFilter>().mesh;
             mesh.SetVertices(CalcPoint(Key, Radius));
 
-            if (Radius > 5.6f) 
+            if (timeLine.levelInfo.map[NTime].note[Key] < 0 || Radius > 5.6f) 
             {
                 Destroy(gameObject);
                 yield break;

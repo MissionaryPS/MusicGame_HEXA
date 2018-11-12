@@ -215,6 +215,7 @@ GameObject:
   - component: {fileID: 1414176047}
   - component: {fileID: 1414176056}
   - component: {fileID: 1414176057}
+  - component: {fileID: 1414176058}
   m_Layer: 0
   m_Name: ScriptManager
   m_TagString: Untagged
@@ -237,29 +238,9 @@ MonoBehaviour:
   temp: 000000000000
   notesDelay: 0.5
   fps: 0.033333335
+  LoadData: 0
   select: easy
-  MusicTitle: metronome
-  music: {fileID: 0}
-  mapdata:
-    bpm: 0
-    startTime: 0
-    difficulty:
-      easy:
-        level: 0
-        allTarget: 0
-        map: []
-      normal:
-        level: 0
-        allTarget: 0
-        map: []
-      hard:
-        level: 0
-        allTarget: 0
-        map: []
-  levelInfo:
-    level: 0
-    allTarget: 0
-    map: []
+  MusicTitle: HyperHyper
   speed: 0
 --- !u!82 &1414176048
 AudioSource:
@@ -356,6 +337,7 @@ MonoBehaviour:
   temp: 000000000000
   notesDelay: 0.5
   fps: 0.033333335
+  LoadData: 0
 --- !u!4 &1414176050
 Transform:
   m_ObjectHideFlags: 0
@@ -384,29 +366,9 @@ MonoBehaviour:
   temp: 000000000000
   notesDelay: 0.5
   fps: 0.033333335
+  LoadData: 0
   select: easy
-  MusicTitle: metronome
-  music: {fileID: 0}
-  mapdata:
-    bpm: 0
-    startTime: 0
-    difficulty:
-      easy:
-        level: 0
-        allTarget: 0
-        map: []
-      normal:
-        level: 0
-        allTarget: 0
-        map: []
-      hard:
-        level: 0
-        allTarget: 0
-        map: []
-  levelInfo:
-    level: 0
-    allTarget: 0
-    map: []
+  MusicTitle: HyperHyper
   speed: 0
 --- !u!114 &1414176052
 MonoBehaviour:
@@ -423,29 +385,9 @@ MonoBehaviour:
   temp: 000000000000
   notesDelay: 0.5
   fps: 0.033333335
+  LoadData: 0
   select: easy
   MusicTitle: metronome
-  music: {fileID: 0}
-  mapdata:
-    bpm: 0
-    startTime: 0
-    difficulty:
-      easy:
-        level: 0
-        allTarget: 0
-        map: []
-      normal:
-        level: 0
-        allTarget: 0
-        map: []
-      hard:
-        level: 0
-        allTarget: 0
-        map: []
-  levelInfo:
-    level: 0
-    allTarget: 0
-    map: []
   speed: 0
 --- !u!23 &1414176053
 MeshRenderer:
@@ -501,6 +443,7 @@ MonoBehaviour:
   temp: 000000000000
   notesDelay: 0.5
   fps: 0.033333335
+  LoadData: 0
   KeyBase: {fileID: 1565902923023872, guid: 50d08825bfc1c5249a4a710327e6011b, type: 2}
   VerticesCount: 6
   JudgeLineprefab: {fileID: 1685848686752052, guid: 0ef3bc39ca3ae37459eb6d8cc39e9d31,
@@ -523,6 +466,7 @@ MonoBehaviour:
   temp: 000000000000
   notesDelay: 0.5
   fps: 0.033333335
+  LoadData: 0
 --- !u!114 &1414176057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -534,3 +478,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2be85bb08147ef4d8e19fc51177f482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1414176058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1414176046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef2f4cc8a0281664dbc8e8ccb2f00734, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KeyConfig: 760000006400000072000000750000006b0000006e000000
+  temp: 000000000000
+  notesDelay: 0.5
+  fps: 0.033333335
+  LoadData: 0
+  select: easy
+  MusicTitle: HyperHyper
+  speed: 0
+  music: {fileID: 0}
+  mapdata:
+    bpm: 0
+    startTime: 0
+    difficulty:
+      easy:
+        level: 0
+        allTarget: 0
+        map: []
+      normal:
+        level: 0
+        allTarget: 0
+        map: []
+      hard:
+        level: 0
+        allTarget: 0
+        map: []
+  levelInfo:
+    level: 0
+    allTarget: 0
+    map: []

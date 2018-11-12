@@ -86,6 +86,7 @@
     <Compile Include="Assets\Script\Play\MusicData.cs" />
     <Compile Include="Assets\Script\Play\NotesMove.cs" />
     <Compile Include="Assets\Script\Play\PlayMain.cs" />
+    <Compile Include="Assets\Script\Play\TimeLine.cs" />
     <Compile Include="Assets\Script\Result.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

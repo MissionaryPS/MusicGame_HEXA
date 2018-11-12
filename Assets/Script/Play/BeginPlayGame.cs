@@ -6,7 +6,7 @@ public class BeginPlayGame : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        gameObject.GetComponent<PlayMain>().StartCoroutine("PlayStart");
+        //gameObject.GetComponent<PlayMain>().StartCoroutine("PlayStart");
 	}
 	
 }

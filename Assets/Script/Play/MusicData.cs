@@ -5,6 +5,15 @@ using System;
 using System.Linq;
 
 public class MusicData : PlayMain {
+
+    TimeLine timeLine;
+
+    private void Start()
+    {
+        timeLine = gameObject.GetComponent<TimeLine>();
+
+    }
+
     public IEnumerator LoadAudioClip(string MusicTitle)
     {
         string path = Application.dataPath + "/Resources/" + MusicTitle + ".wav";
@@ -14,8 +23,8 @@ public class MusicData : PlayMain {
             Debug.Log(path);
             Debug.Log(wwwMusic.isDone);
             Debug.Log(wwwMusic.url);
-            music.clip = wwwMusic.GetAudioClip(false, true);
-            Debug.Log(music.clip.loadState);
+            timeLine.music.clip = wwwMusic.GetAudioClip(false, true);
+            Debug.Log(timeLine.music.clip.loadState);
         }
         yield break;
     }
@@ -27,7 +36,7 @@ public class MusicData : PlayMain {
         {
             yield return www;
             Debug.Log(www.text);
-            mapdata = JsonUtility.FromJson<Data>(www.text);
+            timeLine.mapdata = JsonUtility.FromJson<Data>(www.text);
         }
         yield break;
     }
@@ -37,9 +46,9 @@ public class MusicData : PlayMain {
         Debug.Log("start get map.");
         switch (SelectLevel)
         {
-            case "easy": return mapdata.difficulty.easy;
-            case "normal": return mapdata.difficulty.normal;
-            case "hard": return mapdata.difficulty.hard;
+            case "easy": return timeLine.mapdata.difficulty.easy;
+            case "normal": return timeLine.mapdata.difficulty.normal;
+            case "hard": return timeLine.mapdata.difficulty.hard;
             default: return null;
         }
     }
