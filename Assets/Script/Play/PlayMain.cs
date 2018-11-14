@@ -37,11 +37,8 @@ public class PlayMain : MainRoot {
     }
 
 
-    public string select = "easy";
-    [SerializeField]
-    public string MusicTitle = "HyperHyper";
     public float speed;
-    
+    public float notesDelay = 0.25f;
 
 
     IEnumerator WaitPressSpace()

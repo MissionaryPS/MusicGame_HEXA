@@ -8,23 +8,23 @@ public class Judge : PlayMain {
     int bpm;
     float startTime;
 
-    int[] Next = new int[6];
+    public int[] Next = new int[6];
 
     //public int[,] humen = new int[7,48*4*4];
     public void SetUpJudge()
     {
         timeLine = gameObject.GetComponent<TimeLine>();
         bpm = timeLine.mapdata.bpm;
-        startTime = timeLine.mapdata.startTime;
+        startTime = timeLine.mapdata.startTime / 100;
         for (int key = 0; key < 6; key++) Next[key] = SearchNext(0, key);
     }
     
-    const float perArea = 0.05f;
-    const float targetArea = 0.06f;
+    public float perArea = 0.3f;
+    public float targetArea = 0.5f;
     public int OnKey(int key,float time)
     {
         
-        float target = Notes2Time(timeLine.levelInfo.map[Next[key]].timing,bpm,startTime/100);
+        float target = Notes2Time(timeLine.levelInfo.map[Next[key]].timing,bpm,startTime);
         float perS,perE;
         perS = time - perArea;
         perE = time + perArea;
@@ -54,6 +54,12 @@ public class Judge : PlayMain {
         }
         */
         return 0;
+    }
+
+    public void Miss(int key)
+    {
+        timeLine.levelInfo.map[Next[key]].note[key] *= -1;
+        Next[key] = SearchNext(Next[key], key);
     }
 
     private int SearchNext(int n, int key) {

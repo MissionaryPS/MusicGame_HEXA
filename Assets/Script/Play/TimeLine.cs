@@ -12,11 +12,16 @@ public class TimeLine : PlayMain {
     public Data mapdata;
     public LevelInfo levelInfo;
 
+    public string select = "easy";
+    [SerializeField]
+    private string MusicTitle = "HyperHyper";
+
+
     public IEnumerator Start()
     {
 
         Debug.Log("playMain start.");
-        for (int i = 0; i < 6; i++) temp[i] = false; //キーの初期化
+        for (int i = 0; i < 6; i++) isOnKey[i] = false; //キーの初期化
 
         data = gameObject.GetComponent<MusicData>();
         music = gameObject.GetComponent<AudioSource>();
@@ -48,16 +53,24 @@ public class TimeLine : PlayMain {
         float playTime = -1.0f;
         float CreateTime = 1.0f;
         int NextNotes = 0;
-        float startTime = 1.25f;
+        float startTime = mapdata.startTime / 100;
         float NextTime = startTime;
         int bpm = 190;
-        music.Play();
         while (true)
         {
 
             if (music.isPlaying)
             {
                 playTime = music.time;
+            }
+            else
+            {
+                playTime += fps;
+                if(playTime > 0)
+                {
+                    Debug.Log("MusicStart");
+                    music.Play();
+                }
             }
 
 
@@ -68,7 +81,7 @@ public class TimeLine : PlayMain {
              * 次のノーツ生成のタイミングをノーツを生成したタイミングで確認、変数に保持。
              */
 
-            if (playTime + CreateTime >= NextTime)
+            if (playTime + CreateTime + notesDelay >= NextTime)
             {
                 for (int key = 0; key < 6; key++)
                 {
@@ -81,21 +94,31 @@ public class TimeLine : PlayMain {
 
             for (int key = 0; key < 6; key++)
             {
-                if (Input.GetKey(KeyConfig[key]) != temp[key])
+                if (Input.GetKey(KeyConfig[key]) != isOnKey[key])
                 {
                     //Debug.Log(i);
-                    if (temp[key])
+                    if (isOnKey[key])
                     {
                         draw.TurnOff(key);
-                        temp[key] = false;
+                        isOnKey[key] = false;
                     }
                     else
                     {
                         draw.TurnOn(key, judge.OnKey(key, playTime));
-                        temp[key] = true;
+                        isOnKey[key] = true;
                     }
                 }
+                /*
+                if (Notes2Time(levelInfo.map[judge.Next[key]].timing, bpm, startTime) < playTime + judge.targetArea)
+                {
+                    judge.Miss(key);
+                    Debug.Log("Miss!");
+                }
+                */
+
             }
+
+
 
             yield return new WaitForSeconds(fps);
         }
