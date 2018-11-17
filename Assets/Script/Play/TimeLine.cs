@@ -13,9 +13,6 @@ public class TimeLine : PlayMain {
     public LevelInfo levelInfo;
 
     public string select = "easy";
-    [SerializeField]
-    private string MusicTitle = "HyperHyper";
-
 
     public IEnumerator Start()
     {

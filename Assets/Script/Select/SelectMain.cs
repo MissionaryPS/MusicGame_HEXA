@@ -48,16 +48,30 @@ public class SelectMain : MainRoot {
     [SerializeField]
     public Material existmusic;
 
-    private ButtonMaterial Button;
+    int devide = 15;
+
+    //private ButtonMaterial Button;
 
     IEnumerator Start()
     {
         yield return StartCoroutine("LoadList");
-        Button = gameObject.GetComponent<ButtonMaterial>();
+        //Button = gameObject.GetComponent<ButtonMaterial>();
         foreach (Music music in musicList.music) Debug.Log(music.title);
         Debug.Log(musicList.music.Length + "musics load");
 
-        //このへんに描画
+        float CircleRadius = radius * Mathf.Cos((360f / devide) * Mathf.Deg2Rad) / Mathf.Tan((360f / devide / 2) * Mathf.Deg2Rad);
+
+
+        //music button
+        int center = 1;
+        GameObject[] MusicButton = new GameObject[7];
+        for (int i = 0; i < 7; i++)
+        {
+            MusicButton[i] = Instantiate(HexBase) as GameObject;
+            MusicButton[i].GetComponent<MusicButton>().SetUpButton(i, center, devide, radius, CircleRadius);
+        }
+
+        //menubutton
         float CRadius = radius * Mathf.Sin(60 * Mathf.Deg2Rad) * 2;
         GameObject[] MenuButton = new GameObject[4];
         for (int i = 0; i < 6; i++)
@@ -68,18 +82,13 @@ public class SelectMain : MainRoot {
                 float rad = (60f * i) * Mathf.Deg2Rad;
                 float cx = CRadius * Mathf.Cos(rad);
                 float cy = CRadius * Mathf.Sin(rad);
-
-                MenuButton[j++] = CreateHexagon(new Vector3(cx, cy, -1), radius);
+                
+                MenuButton[j++] = CreateHexagon(new Vector3(cx, cy, -CircleRadius), radius-0.1f);
+                //MenuButton[j].name = "MenuButton";
             }
         }
-
-        int center = 1;
-        GameObject[] MusicButton = new GameObject[7];
-        for (int i = 0; i < 7; i++)
-        {
-            MusicButton[i] = CreateHexagon(new Vector3(CRadius * (i - 3), 0, 0), radius - 0.1f);
-            MusicButton[i].GetComponent<ButtonMaterial>().SetUpPosition(i - 3, center);
-        }
+        
+        
 
         //選択処理開始
         while (true)
@@ -88,17 +97,14 @@ public class SelectMain : MainRoot {
             {
                 center--;
                 foreach (GameObject Button in MusicButton)
-                    Button.GetComponent<ButtonMaterial>().ChangeMaterial(center);
+                    Button.GetComponent<MusicButton>().ReDrawButton(center);
 
             }
             if (!(isOnKey[4]) && Input.GetKey(KeyConfig[4]))
             {
-                for (int i = 0; i < MusicButton.Length; i++)
-                {
-                    center++;
-                    foreach (GameObject Button in MusicButton)
-                        Button.GetComponent<ButtonMaterial>().ChangeMaterial(center);
-                }
+                center++;
+                foreach (GameObject Button in MusicButton)
+                    Button.GetComponent<MusicButton>().ReDrawButton(center);
             }
             //if (!(isOnKey[7]) && Input.GetKey(KeyConfig[7])) yield break;
 

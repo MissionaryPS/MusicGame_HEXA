@@ -15,7 +15,7 @@ public class MainRoot : MonoBehaviour {
 
     //六角形系統
     [SerializeField]
-    private GameObject HexBase;
+    public GameObject HexBase;
 
     public GameObject CreateHexagon(Vector3 center, float radius)
     {
