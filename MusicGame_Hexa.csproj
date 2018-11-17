@@ -87,6 +87,7 @@
     <Compile Include="Assets\Script\Play\NotesMove.cs" />
     <Compile Include="Assets\Script\Play\PlayMain.cs" />
     <Compile Include="Assets\Script\Play\TimeLine.cs" />
+    <Compile Include="Assets\Script\Result\RaderChart.cs" />
     <Compile Include="Assets\Script\Result\Result.cs" />
     <Compile Include="Assets\Script\Select\ButtonManager.cs" />
     <Compile Include="Assets\Script\Select\ButtonMaterial.cs" />

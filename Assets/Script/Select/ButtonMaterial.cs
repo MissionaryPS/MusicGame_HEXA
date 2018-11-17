@@ -68,7 +68,7 @@ public class ButtonMaterial : SelectMain {
             float rad = (90f - 60f * i) * Mathf.Deg2Rad;
             float xy = radius * Mathf.Cos(rad);
             float z = radius * Mathf.Sin(rad);
-            vertices.Add(center + new Vector3(xy, xy, 0));
+            vertices.Add(center + new Vector3(xy, xy, z));
         }
         return vertices;
     }
