@@ -12,16 +12,14 @@ public class MusicButton : MainRoot {
     List<Vector3> LocalHexVertices = new List<Vector3>();
     List<Vector3> LocalEdgeVertices = new List<Vector3>();
     GameObject Edge;
-    float EdgeRate = 0.8f;
-
-    /*private void Start()
+    float EdgeRate = 0.88f;
+    [SerializeField]
+    GameObject EdgeFab;
+    
+    public void SetUpButton(int number, int focus,int Devide, float HexRadius,float CRadius, int difficulty)
     {
-        Edge = Instantiate(HexBase) as GameObject;
+        Edge = Instantiate(EdgeFab) as GameObject;
         Edge.name = "edge";
-    }
-    */
-    public void SetUpButton(int number, int focus,int Devide, float HexRadius,float CRadius)
-    {
         SelfNum = number;
         CircleRadius = CRadius;
         devide = Devide;
@@ -32,44 +30,40 @@ public class MusicButton : MainRoot {
         {
             HexIndex.Add(0);
             HexIndex.Add(i);
-            EdgeIndex.Add(i * 2 - 1);
-            EdgeIndex.Add(i * 2);
-            if(i == 6)
-            {
-                HexIndex.Add(1);
-                EdgeIndex.Add(1);
-                EdgeIndex.Add(1);
-                EdgeIndex.Add(12);
-                EdgeIndex.Add(2);
-            }
-            else
-            {
-                HexIndex.Add(i + 1);
-                EdgeIndex.Add(i * 2 + 1);
-                EdgeIndex.Add(i * 2 + 1);
-                EdgeIndex.Add(i * 2);
-                EdgeIndex.Add(i * 2 + 2);
-            }
+            HexIndex.Add(i + 1 <= 6? i + 1 : 1);
+
+            EdgeIndex.Add((i - 1) * 2);
+            EdgeIndex.Add((i - 1) * 2 + 1);
+            EdgeIndex.Add(i * 2 < 12 ? i * 2 : 0);
+            EdgeIndex.Add(i * 2 < 12 ? i * 2 : 0);
+            EdgeIndex.Add((i - 1) * 2 + 1);
+            EdgeIndex.Add(i * 2 + 1 < 12 ? i * 2 + 1 : 1);
         }
 
         var mesh = new Mesh();
         mesh.vertices = CalcRetVertices(DecidePosition(focus), LocalHexVertices).ToArray();
         mesh.triangles = HexIndex.ToArray();
-        /*
+        
         var Emesh = new Mesh();
         Emesh.vertices = CalcRetVertices(DecidePosition(focus), LocalEdgeVertices).ToArray();
         Emesh.triangles = EdgeIndex.ToArray();
-        */
+        
         //メッシュの反映
         gameObject.GetComponent<MeshFilter>().sharedMesh = mesh;
-        //Edge.GetComponent<MeshFilter>().sharedMesh = Emesh;
+        Edge.GetComponent<MeshFilter>().sharedMesh = Emesh;
+        Edge.GetComponent<ButtonEdge>().SetColor(difficulty);
     }
 
     public void ReDrawButton(int focus)
     {
         gameObject.GetComponent<MeshFilter>().mesh.SetVertices(CalcRetVertices(DecidePosition(focus), LocalHexVertices));
-        //Edge.GetComponent<MeshFilter>().mesh.SetVertices(CalcRetVertices(DecidePosition(focus), LocalEdgeVertices));
+        Edge.GetComponent<MeshFilter>().mesh.SetVertices(CalcRetVertices(DecidePosition(focus), LocalEdgeVertices));
         
+    }
+
+    public void ChangeDifficulty(int difficulty)
+    {
+        Edge.GetComponent<ButtonEdge>().SetColor(difficulty);
     }
 
     int DecidePosition(int focus)
@@ -89,7 +83,7 @@ public class MusicButton : MainRoot {
             float x = Vert.x * (Mathf.Cos(rad));
             float y = Vert.y ;
             float z = Vert.x * (Mathf.Sin(rad));
-            vertices.Add(center + new Vector3(x, y, z));
+            vertices.Add(center + new Vector3(x, y, z));            
         }
         //Debug.Log(vertices.Count + "vertices");
         return vertices;
@@ -103,6 +97,7 @@ public class MusicButton : MainRoot {
         return new Vector3(x, y, z);
     }
 
+    
 
     private List<Vector3> CalcLocalVertices(Vector3 center, float radius)
     {
@@ -114,7 +109,7 @@ public class MusicButton : MainRoot {
             float x = radius * Mathf.Cos(rad);
             float y = radius * Mathf.Sin(rad);
             Vector3 vector = new Vector3(x, y, 0);
-            vertices.Add(center + vector/* * EdgeRate*/);
+            vertices.Add(center + vector * EdgeRate);
             LocalEdgeVertices.Add(center + vector * EdgeRate);
             LocalEdgeVertices.Add(center + vector);
         }

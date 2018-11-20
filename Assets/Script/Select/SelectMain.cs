@@ -49,7 +49,7 @@ public class SelectMain : MainRoot {
     public Material existmusic;
 
     int devide = 15;
-
+    int difficulty = 0;
     //private ButtonMaterial Button;
 
     IEnumerator Start()
@@ -68,7 +68,7 @@ public class SelectMain : MainRoot {
         for (int i = 0; i < 7; i++)
         {
             MusicButton[i] = Instantiate(HexBase) as GameObject;
-            MusicButton[i].GetComponent<MusicButton>().SetUpButton(i, center, devide, radius, CircleRadius);
+            MusicButton[i].GetComponent<MusicButton>().SetUpButton(i, center, devide, radius, CircleRadius,difficulty);
         }
 
         //menubutton
@@ -106,8 +106,13 @@ public class SelectMain : MainRoot {
                 foreach (GameObject Button in MusicButton)
                     Button.GetComponent<MusicButton>().ReDrawButton(center);
             }
+            if (!(isOnKey[3]) && Input.GetKey(KeyConfig[3]))
+            {
+                difficulty = (difficulty + 1) % 3;
+                foreach (GameObject Button in MusicButton)
+                    Button.GetComponent<MusicButton>().ChangeDifficulty(difficulty);
+            }
             //if (!(isOnKey[7]) && Input.GetKey(KeyConfig[7])) yield break;
-
 
             for (int i = 0; i < KeyConfig.Length; i++) isOnKey[i] = Input.GetKey(KeyConfig[i]);
             yield return new WaitForSeconds(fps);
