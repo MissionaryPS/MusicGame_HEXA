@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class MusicButton : MainRoot {
     //曲のボタン限定
-
+    //クラスのコピー
+    SelectMain select;
+    //ボタンのプロパティ
     private int SelfNum;
     private int focus;
     private int devide;
     private float CircleRadius;
     List<Vector3> LocalHexVertices = new List<Vector3>();
-    List<Vector3> LocalEdgeVertices = new List<Vector3>();
+    Texture texture;
+    //縁取り関係
     GameObject Edge;
-    float EdgeRate = 0.88f;
     [SerializeField]
     GameObject EdgeFab;
+    List<Vector3> LocalEdgeVertices = new List<Vector3>();
+    float EdgeRate = 0.88f;
     
     public void SetUpButton(int number, int focus,int Devide, float HexRadius,float CRadius, int difficulty)
     {
+        select = GameObject.Find("ScriptManager").GetComponent<SelectMain>();
         Edge = Instantiate(EdgeFab) as GameObject;
         Edge.name = "edge";
         SelfNum = number;
@@ -52,6 +57,7 @@ public class MusicButton : MainRoot {
         gameObject.GetComponent<MeshFilter>().sharedMesh = mesh;
         Edge.GetComponent<MeshFilter>().sharedMesh = Emesh;
         Edge.GetComponent<ButtonEdge>().SetColor(difficulty);
+
     }
 
     public void ReDrawButton(int focus)

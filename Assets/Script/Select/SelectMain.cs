@@ -22,7 +22,7 @@ public class SelectMain : MainRoot {
         public float bpm;
         public int HiScore;
         public string FileName;
-        public string JacketFileName;
+        public string JacketFile;
     }
     [Serializable]
     public class Difficulty
@@ -56,7 +56,7 @@ public class SelectMain : MainRoot {
     {
         yield return StartCoroutine("LoadList");
         //Button = gameObject.GetComponent<ButtonMaterial>();
-        foreach (Music music in musicList.music) Debug.Log(music.title);
+        //foreach (Music music in musicList.music) Debug.Log(music.title);
         Debug.Log(musicList.music.Length + "musics load");
 
         float CircleRadius = radius * Mathf.Cos((360f / devide) * Mathf.Deg2Rad) / Mathf.Tan((360f / devide / 2) * Mathf.Deg2Rad);
@@ -64,8 +64,8 @@ public class SelectMain : MainRoot {
 
         //music button
         int center = 1;
-        GameObject[] MusicButton = new GameObject[7];
-        for (int i = 0; i < 7; i++)
+        GameObject[] MusicButton = new GameObject[musicList.music.Length + 2];
+        for (int i = 0; i < musicList.music.Length + 2; i++)
         {
             MusicButton[i] = Instantiate(HexBase) as GameObject;
             MusicButton[i].GetComponent<MusicButton>().SetUpButton(i, center, devide, radius, CircleRadius,difficulty);
@@ -95,14 +95,14 @@ public class SelectMain : MainRoot {
         {
             if (!(isOnKey[1]) && Input.GetKey(KeyConfig[1]))
             {
-                center--;
+                center = center == 0 ?  musicList.music.Length + 1 : center - 1;
                 foreach (GameObject Button in MusicButton)
                     Button.GetComponent<MusicButton>().ReDrawButton(center);
 
             }
             if (!(isOnKey[4]) && Input.GetKey(KeyConfig[4]))
             {
-                center++;
+                center = center == musicList.music.Length + 1 ? 0 : center + 1;
                 foreach (GameObject Button in MusicButton)
                     Button.GetComponent<MusicButton>().ReDrawButton(center);
             }
@@ -140,6 +140,8 @@ public class SelectMain : MainRoot {
 
         return retList;
     }
+
+
 
 
 
