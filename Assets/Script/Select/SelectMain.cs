@@ -4,7 +4,8 @@ using UnityEngine;
 using System;
 
 
-public class SelectMain : MainRoot {
+public class SelectMain : MainRoot
+{
 
     [Serializable]
     public class MusicList
@@ -68,6 +69,7 @@ public class SelectMain : MainRoot {
         for (int i = 0; i < musicList.music.Length + 2; i++)
         {
             MusicButton[i] = Instantiate(HexBase) as GameObject;
+
             MusicButton[i].GetComponent<MusicButton>().SetUpButton(i, center, devide, radius, CircleRadius,difficulty);
         }
 
