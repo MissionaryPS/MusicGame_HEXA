@@ -69,7 +69,8 @@ public class SelectMain : MainRoot
         for (int i = 0; i < musicList.music.Length + 2; i++)
         {
             MusicButton[i] = Instantiate(HexBase) as GameObject;
-            MusicButton[i].GetComponent<MusicButton>().SetUpButton(i, center, devide, radius, CircleRadius, difficulty);
+
+            MusicButton[i].GetComponent<MusicButton>().SetUpButton(i, center, devide, radius, CircleRadius,difficulty);
         }
 
         //menubutton
@@ -83,20 +84,20 @@ public class SelectMain : MainRoot
                 float rad = (60f * i) * Mathf.Deg2Rad;
                 float cx = CRadius * Mathf.Cos(rad);
                 float cy = CRadius * Mathf.Sin(rad);
-
-                MenuButton[j++] = CreateHexagon(new Vector3(cx, cy, -CircleRadius), radius - 0.1f);
+                
+                MenuButton[j++] = CreateHexagon(new Vector3(cx, cy, -CircleRadius), radius-0.1f);
                 //MenuButton[j].name = "MenuButton";
             }
         }
-
-
+        
+        
 
         //選択処理開始
         while (true)
         {
             if (!(isOnKey[1]) && Input.GetKey(KeyConfig[1]))
             {
-                center = center == 0 ? musicList.music.Length + 1 : center - 1;
+                center = center == 0 ?  musicList.music.Length + 1 : center - 1;
                 foreach (GameObject Button in MusicButton)
                     Button.GetComponent<MusicButton>().ReDrawButton(center);
 
