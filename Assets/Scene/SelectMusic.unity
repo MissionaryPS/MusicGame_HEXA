@@ -549,7 +549,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-<<<<<<< HEAD
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1973948615
 MonoBehaviour:
@@ -605,6 +604,3 @@ MonoBehaviour:
   HexBase: {fileID: 0}
   musicList:
     music: []
-=======
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> 167a9a8cd95d429763f9448fb6914b3f35931dd7
