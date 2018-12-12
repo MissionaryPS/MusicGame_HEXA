@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: 03dddeb1bb3bdc3428dfb6d4971e0af0
-timeCreated: 1542416703
+guid: 46ba6dcb933775a4190b94c7c00a251f
+timeCreated: 1544080108
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - HexBase: {fileID: 1565902923023872, guid: 50d08825bfc1c5249a4a710327e6011b, type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

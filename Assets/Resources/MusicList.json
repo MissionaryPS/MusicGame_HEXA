@@ -1,119 +1,88 @@
 {
     "music": [
         {
-            "title": "metronome",
-            "artist": "hogehoge",
-            "scoreMake": "piyo",
-            "Difficulty": {
+            "title": "ENTRANCE",
+            "artist": "8a74sh1",
+            "FileName": "entrance",
+            "JacketFileName": "texturetest1.png",
+            "bpm": 156,
+            "difficulty": {
                 "easy": {
                     "Level": 1,
                     "AllTarget": 100
                 },
                 "normal": {
-                    "Level": 1,
-                    "AllTarget": 100
+                    "Level": 0,
+                    "AllTarget": 0
                 },
                 "hard": {
-                    "Level": 1,
-                    "AllTarget": 100
+                    "Level": 0,
+                    "AllTarget": 0
                 }
-            },
-            "bpm": 120,
-            "HiScore": 0,
-            "FileName": "metronome",
-            "JacketFileName": "texturetest1.png"
+            }
         },
         {
-            "title": "metronome2",
-            "artist": "hogehoge",
-            "scoreMake": "piyo",
-            "Difficulty": {
+            "title": "Fairy Dance",
+            "artist": "Orikis",
+            "FileName": "FairyDance",
+            "JacketFileName": "test",
+            "bpm": 120,
+            "difficulty": {
                 "easy": {
                     "Level": 1,
                     "AllTarget": 100
                 },
                 "normal": {
-                    "Level": 1,
+                    "Level": 0,
                     "AllTarget": 100
                 },
                 "hard": {
-                    "Level": 1,
+                    "Level": 0,
                     "AllTarget": 100
                 }
-            },
-            "bpm": 120,
-            "HiScore": 0,
-            "FileName": "metronome",
-            "JacketFileName": "test"
+            }
         },
         {
-            "title": "metronome3",
-            "artist": "hogehoge",
-            "scoreMake": "piyo",
-            "Difficulty": {
+            "title": "Hyper$Hyper",
+            "artist": "Orikis",
+            "FileName": "hyperhyper",
+            "JacketFileName": "test",
+            "bpm": 190,
+            "difficulty": {
                 "easy": {
                     "Level": 1,
                     "AllTarget": 100
                 },
                 "normal": {
-                    "Level": 1,
+                    "Level": 0,
                     "AllTarget": 100
                 },
                 "hard": {
-                    "Level": 1,
+                    "Level": 0,
                     "AllTarget": 100
                 }
-            },
-            "bpm": 120,
-            "HiScore": 0,
-            "FileName": "metronome",
-            "JacketFileName": "test"
+            }
         },
         {
-            "title": "metronome4",
-            "artist": "hogehoge",
-            "scoreMake": "piyo",
-            "Difficulty": {
+            "title": "Bassdrum Attack",
+            "artist": "waji",
+            "FileName": "Bassdrum",
+            "JacketFileName": "tesst",
+            "bpm": 220,
+            "difficulty": {
                 "easy": {
                     "Level": 1,
                     "AllTarget": 100
                 },
                 "normal": {
-                    "Level": 1,
-                    "AllTarget": 100
+                    "Level": 0,
+                    "AllTarget": 0
                 },
                 "hard": {
-                    "Level": 1,
-                    "AllTarget": 100
+                    "Level": 0,
+                    "AllTarget": 0
                 }
-            },
-            "bpm": 120,
-            "HiScore": 0,
-            "FileName": "metronome",
-            "JacketFileName": "test"
-        },
-        {
-            "title": "metronome5",
-            "artist": "hogehoge",
-            "scoreMake": "piyo",
-            "Difficulty": {
-                "easy": {
-                    "Level": 1,
-                    "AllTarget": 100
-                },
-                "normal": {
-                    "Level": 1,
-                    "AllTarget": 100
-                },
-                "hard": {
-                    "Level": 1,
-                    "AllTarget": 100
-                }
-            },
-            "bpm": 120,
-            "HiScore": 0,
-            "FileName": "metronome",
-            "JacketFileName": "texturetest2.png"
+            }
         }
     ]
 }
