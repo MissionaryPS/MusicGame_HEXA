@@ -10,7 +10,6 @@ public class TimeLine : PlayMain {
     private MusicData data;
     public AudioSource music;
     public Data mapdata;
-    public LevelInfo levelInfo;
 
     public string select = "easy";
 
@@ -26,7 +25,6 @@ public class TimeLine : PlayMain {
         //譜面読み込み
         yield return data.StartCoroutine("LoadJson", "HyperHyper");
         Debug.Log("bpm:" + mapdata.bpm + " / startTime:" + mapdata.startTime);
-        levelInfo = data.GetMap(select);
 
         //音源読み込み
         yield return data.StartCoroutine("LoadAudioClip", "HyperHyper");
@@ -82,10 +80,10 @@ public class TimeLine : PlayMain {
             {
                 for (int key = 0; key < 6; key++)
                 {
-                    if (levelInfo.map[NextNotes].note[key] != 0) draw.CreateNotes(NextNotes, key);
+                    if (mapdata.map[NextNotes].note[key] != 0) draw.CreateNotes(NextNotes, key);
                 }
                 NextNotes++;
-                NextTime = Notes2Time(levelInfo.map[NextNotes].timing, bpm, startTime);
+                NextTime = Notes2Time(mapdata.map[NextNotes].timing, bpm, startTime);
                 Debug.Log(playTime + CreateTime + " >= " + NextTime);
             }
 
@@ -106,7 +104,7 @@ public class TimeLine : PlayMain {
                     }
                 }
                 /*
-                if (Notes2Time(levelInfo.map[judge.Next[key]].timing, bpm, startTime) < playTime + judge.targetArea)
+                if (Notes2Time(mapdata.map[judge.Next[key]].timing, bpm, startTime) < playTime + judge.targetArea)
                 {
                     judge.Miss(key);
                     Debug.Log("Miss!");

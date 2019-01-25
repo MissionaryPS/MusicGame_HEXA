@@ -24,7 +24,7 @@ public class Judge : PlayMain {
     public int OnKey(int key,float time)
     {
         
-        float target = Notes2Time(timeLine.levelInfo.map[Next[key]].timing,bpm,startTime);
+        float target = Notes2Time(timeLine.mapdata.map[Next[key]].timing,bpm,startTime);
         float perS,perE;
         perS = time - perArea;
         perE = time + perArea;
@@ -32,7 +32,7 @@ public class Judge : PlayMain {
         Debug.Log(perS + "/" + target + "/" + perE);
         if (perS < target && target < perE)
         {
-            timeLine.levelInfo.map[Next[key]].note[key] *= -1;
+            timeLine.mapdata.map[Next[key]].note[key] *= -1;
             Next[key] = SearchNext(Next[key], key);
             return 1;
         }
@@ -58,14 +58,14 @@ public class Judge : PlayMain {
 
     public void Miss(int key)
     {
-        timeLine.levelInfo.map[Next[key]].note[key] *= -1;
+        timeLine.mapdata.map[Next[key]].note[key] *= -1;
         Next[key] = SearchNext(Next[key], key);
     }
 
     private int SearchNext(int n, int key) {
         int ret;
         for (int i = n; ; i++) {
-            if (timeLine.levelInfo.map[i].note[key] > 0) {
+            if (timeLine.mapdata.map[i].note[key] > 0) {
                 ret = i;
                 break;
             }

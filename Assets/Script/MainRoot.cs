@@ -12,6 +12,21 @@ public class MainRoot : MonoBehaviour {
 
     public bool LoadData = false;
     
+    public struct Select2Play
+    {
+        int difficulty;
+        string title;
+        string FileName;
+
+    }
+
+    public struct Play2Result
+    {
+        int score;
+        int MaxCombo;
+        int allTarget;
+        int SkinScore;
+    }
 
     //六角形系統
     [SerializeField]

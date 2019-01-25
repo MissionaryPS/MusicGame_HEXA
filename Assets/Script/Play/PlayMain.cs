@@ -12,20 +12,6 @@ public class PlayMain : MainRoot {
     {
         public int bpm;
         public int startTime;
-        public Difficulty difficulty;
-    }
-    [Serializable]
-    public class Difficulty
-    {
-        public LevelInfo easy;
-        public LevelInfo normal;
-        public LevelInfo hard;
-    }
-    [Serializable]
-    public class LevelInfo
-    {
-        public int level;
-        public int allTarget;
         public Map[] map;
     }
     [Serializable]

@@ -41,16 +41,5 @@ public class MusicData : PlayMain {
         yield break;
     }
 
-    public LevelInfo GetMap(string SelectLevel)
-    {
-        Debug.Log("start get map.");
-        switch (SelectLevel)
-        {
-            case "easy": return timeLine.mapdata.difficulty.easy;
-            case "normal": return timeLine.mapdata.difficulty.normal;
-            case "hard": return timeLine.mapdata.difficulty.hard;
-            default: return null;
-        }
-    }
 
 }

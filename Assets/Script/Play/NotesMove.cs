@@ -46,7 +46,7 @@ public class NotesMove : MainRoot {
             var mesh = gameObject.GetComponent<MeshFilter>().mesh;
             mesh.SetVertices(CalcPoint(Key, Radius));
 
-            if (timeLine.levelInfo.map[NTime].note[Key] < 0 || Radius > 5.6f) 
+            if (timeLine.mapdata.map[NTime].note[Key] < 0 || Radius > 5.6f) 
             {
                 Destroy(gameObject);
                 yield break;
