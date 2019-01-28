@@ -4,33 +4,39 @@ using UnityEngine;
 
 public class TimeLine : PlayMain {
 
+    string[] diff = new string[3] { "easy", "normal", "hard" };
+
     //読みこみクラス
     private Draw draw;
     private Judge judge;
     private MusicData data;
+    private Select2Play select;
     public AudioSource music;
     public Data mapdata;
 
-    public string select = "easy";
-
-    public IEnumerator Start()
+    private void Start()
     {
-
         Debug.Log("playMain start.");
         for (int i = 0; i < 6; i++) isOnKey[i] = false; //キーの初期化
-
-        data = gameObject.GetComponent<MusicData>();
-        music = gameObject.GetComponent<AudioSource>();
-
-        //譜面読み込み
-        yield return data.StartCoroutine("LoadJson", "HyperHyper");
-        Debug.Log("bpm:" + mapdata.bpm + " / startTime:" + mapdata.startTime);
-
-        //音源読み込み
-        yield return data.StartCoroutine("LoadAudioClip", "HyperHyper");
+        GameObject carrier = GameObject.Find("Carrier");
+        select = carrier.GetComponent<Carrier>().GetSelect();
 
         //描画系の有効化
         draw = gameObject.GetComponent<Draw>();
+
+        data = gameObject.GetComponent<MusicData>();
+        music = gameObject.GetComponent<AudioSource>();
+        StartCoroutine("Load");
+    }
+
+    public IEnumerator Load()
+    {
+        //譜面読み込み
+        yield return data.StartCoroutine("LoadJson", select.FileName);
+        Debug.Log("bpm:" + mapdata.bpm + " / startTime:" + mapdata.startTime);
+
+        //音源読み込み
+        yield return data.StartCoroutine("LoadAudioClip", select.FileName +"/"+diff[select.difficulty]+".json");
 
         //判定有効化
         judge = gameObject.GetComponent<Judge>();
@@ -38,8 +44,8 @@ public class TimeLine : PlayMain {
         //準備ができたらコルーチンスタート
         Debug.Log("Start");
         //yield return StartCoroutine("WaitPressSpace");
-        yield return StartCoroutine("playMusicGame");
-
+        StartCoroutine("playMusicGame");
+        yield break;
     }
 
     IEnumerator playMusicGame()
@@ -112,12 +118,24 @@ public class TimeLine : PlayMain {
                 */
 
             }
-
+            if (Input.GetKey(KeyConfig[7]))
+            {
+                yield return StartCoroutine("EndMusic");
+                yield break;
+            }
 
 
             yield return new WaitForSeconds(fps);
         }
     }
 
-
+    IEnumerator EndMusic()
+    {
+        while (music.volume > 0)
+        {
+            music.volume -= 0.1f;
+            yield return new WaitForSeconds(fps);
+        }
+        yield break;
+    }
 }

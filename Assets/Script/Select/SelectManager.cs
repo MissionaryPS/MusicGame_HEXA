@@ -19,6 +19,7 @@ public class SelectManager : SelectMain {
         difficulty = 0;
         StartCoroutine("enumerator");
     }
+
     IEnumerator enumerator (){
         yield return StartCoroutine("LoadList");
         Debug.Log(musicList.music.Length + "musics load");
@@ -43,6 +44,11 @@ public class SelectManager : SelectMain {
                 difficulty = (difficulty + 1) % 3;
                 canvas.ChangeMusic(center, difficulty);
                 buttonManager.ChangeDifficulty(difficulty);
+            }
+            if(!(isOnKey[6]) && Input.GetKey(KeyConfig[6]))
+            {
+                //ここでゲームプレイに移る処理
+
             }
             //if (!(isOnKey[7]) && Input.GetKey(KeyConfig[7])) yield break;
 

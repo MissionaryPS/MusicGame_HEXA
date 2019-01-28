@@ -7,9 +7,14 @@ public class Carrier : MainRoot {
     private Select2Play select;
     private Play2Result result;
 
-    public void PassSelect(Select2Play data)
+    public void PassSelect(int difficulty, int level, string title, string artist, string FileName)
     {
-        select = data;
+        select.difficulty = difficulty;
+        select.level = level;
+        select.title = title;
+        select.artist = artist;
+        select.FileName = FileName;
+        DontDestroyOnLoad(gameObject);
     }
 
     public Select2Play GetSelect()
@@ -23,6 +28,7 @@ public class Carrier : MainRoot {
 
     public Play2Result GetResult()
     {
+        Destroy(gameObject);
         return result;
     }
 

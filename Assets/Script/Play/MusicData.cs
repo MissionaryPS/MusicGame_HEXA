@@ -16,7 +16,7 @@ public class MusicData : PlayMain {
 
     public IEnumerator LoadAudioClip(string MusicTitle)
     {
-        string path = Application.dataPath + "/Resources/" + MusicTitle + ".wav";
+        string path = Application.dataPath + "/Resources/" + MusicTitle + "/" + MusicTitle + ".wav";
         using (var wwwMusic = new WWW("file:///" + path))
         {
             yield return wwwMusic;
@@ -30,9 +30,9 @@ public class MusicData : PlayMain {
     }
 
 
-    public IEnumerator LoadJson(string MusicTitle)
+    public IEnumerator LoadJson(string FilePath)
     {
-        using (var www = new WWW("file:///" + Application.dataPath + "/Resources/" + MusicTitle + ".json"))
+        using (var www = new WWW("file:///" + Application.dataPath + "/Resources/" + FilePath))
         {
             yield return www;
             Debug.Log(www.text);

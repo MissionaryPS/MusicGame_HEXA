@@ -6,26 +6,32 @@ using System;
 
 public class MainRoot : MonoBehaviour {
 
-    public KeyCode[] KeyConfig = new KeyCode[6] { KeyCode.V, KeyCode.D, KeyCode.R, KeyCode.U, KeyCode.K, KeyCode.N };
-    public bool[] isOnKey = new bool[6];
+    public KeyCode[] KeyConfig = new KeyCode[8] { KeyCode.V, KeyCode.D, KeyCode.R, KeyCode.U, KeyCode.K, KeyCode.N, KeyCode.Space, KeyCode.Escape };
+    public bool[] isOnKey = new bool[8];
     public float fps = 1.0f / 30;
 
     public bool LoadData = false;
     
-    public struct Select2Play
+    public class Select2Play
     {
-        int difficulty;
-        string title;
-        string FileName;
-
+        public int difficulty;
+        public int level;
+        public string title;
+        public string artist;
+        public string FileName;
     }
 
-    public struct Play2Result
+    public class Play2Result
     {
-        int score;
-        int MaxCombo;
-        int allTarget;
-        int SkinScore;
+        public int difficulty;
+        public int level;
+        public string title;
+        public string artist;
+        //ここから追加の情報
+        public int score;
+        public int MaxCombo;
+        public int allTarget;
+        public int SkinScore;
     }
 
     //六角形系統
