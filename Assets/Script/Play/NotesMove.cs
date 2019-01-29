@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NotesMove : MainRoot {
 
-    private TimeLine timeLine;
+    private PlayManager timeLine;
     private float Radius;
     private float Speed;
     private int Key;
@@ -16,7 +16,7 @@ public class NotesMove : MainRoot {
 
     public void SetNotesData(int n, int key, float StartRadius, float BaseSpeed)
     {
-        timeLine = GameObject.Find("ScriptManager").GetComponent<TimeLine>(); 
+        timeLine = GameObject.Find("ScriptManager").GetComponent<PlayManager>(); 
         Radius = StartRadius;
         Speed = BaseSpeed;
         Key = key;

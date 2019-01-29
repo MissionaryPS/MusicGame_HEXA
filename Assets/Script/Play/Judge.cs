@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Judge : PlayMain {
 
-    TimeLine timeLine;
+    PlayManager timeLine;
     int bpm;
     float startTime;
 
@@ -13,7 +13,7 @@ public class Judge : PlayMain {
     //public int[,] humen = new int[7,48*4*4];
     public void SetUpJudge()
     {
-        timeLine = gameObject.GetComponent<TimeLine>();
+        timeLine = gameObject.GetComponent<PlayManager>();
         bpm = timeLine.mapdata.bpm;
         startTime = timeLine.mapdata.startTime / 100;
         for (int key = 0; key < 6; key++) Next[key] = SearchNext(0, key);

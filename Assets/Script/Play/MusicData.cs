@@ -6,11 +6,11 @@ using System.Linq;
 
 public class MusicData : PlayMain {
 
-    TimeLine timeLine;
+    PlayManager timeLine;
 
     private void Start()
     {
-        timeLine = gameObject.GetComponent<TimeLine>();
+        timeLine = gameObject.GetComponent<PlayManager>();
 
     }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeLine : PlayMain {
+public class PlayManager : PlayMain {
 
     string[] diff = new string[3] { "easy", "normal", "hard" };
 
