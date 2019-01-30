@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Carrier : MainRoot {
 
-    private Select2Play select;
-    private Play2Result result;
+    private Select2Play select = new Select2Play();
+    private Play2Result result = new Play2Result();
 
     public void PassSelect(int difficulty, int level, string title, string artist, string FileName)
     {
+        Debug.Log("PassSelect起動");
         select.difficulty = difficulty;
         select.level = level;
         select.title = title;

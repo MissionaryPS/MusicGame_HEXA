@@ -1,8 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SelectManager : SelectMain {
+
+    [SerializeField]
+    GameObject carrier;
 
     public MusicList musicList;
     private CanvasManager canvas;
@@ -12,7 +16,8 @@ public class SelectManager : SelectMain {
 
     // Use this for initialization
     void Start() {
-
+        UpdateInput();
+        Debug.Log("Key Updated");
         canvas = gameObject.GetComponent<CanvasManager>();
         buttonManager = gameObject.GetComponent<ButtonManager>();
         center = 1;
@@ -25,6 +30,7 @@ public class SelectManager : SelectMain {
         Debug.Log(musicList.music.Length + "musics load");
         canvas.SetUp(center, difficulty, musicList);
         buttonManager.SetUp(center, difficulty, musicList);
+        Debug.Log("select process start");
         while (true)
         {
             if (!(isOnKey[1]) && Input.GetKey(KeyConfig[1]))
@@ -45,14 +51,25 @@ public class SelectManager : SelectMain {
                 canvas.ChangeMusic(center, difficulty);
                 buttonManager.ChangeDifficulty(difficulty);
             }
-            if(!(isOnKey[6]) && Input.GetKey(KeyConfig[6]))
+            if (!(isOnKey[6]) && Input.GetKey(KeyConfig[6]))
             {
-                //ここでゲームプレイに移る処理
-
+                if (center != 0 && center != musicList.music.Length + 1)
+                {
+                    Debug.Log("ここでゲームプレイに移る処理");
+                    Music pass = musicList.music[center - 1];
+                    GameObject carry = Instantiate(carrier) as GameObject;
+                    carry.name = "carrier";
+                    carry.GetComponent<Carrier>().PassSelect(difficulty, pass.difficulty[difficulty].Level, pass.title, pass.artist, pass.FileName);
+                    SceneManager.LoadScene("PlayGame");
+                }
+                else
+                {
+                    Debug.LogError("端につきゲームプレイ不可");
+                }
             }
             //if (!(isOnKey[7]) && Input.GetKey(KeyConfig[7])) yield break;
 
-            for (int i = 0; i < KeyConfig.Length; i++) isOnKey[i] = Input.GetKey(KeyConfig[i]);
+            UpdateInput();
             yield return new WaitForSeconds(fps);
         }
     }

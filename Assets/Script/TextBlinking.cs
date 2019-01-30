@@ -10,6 +10,7 @@ public class TextBlinking : MainRoot {
 
 	// Use this for initialization
 	void Start () {
+        Debug.Log("Scene:Start");
         text = gameObject.GetComponent<Text>();
         StartCoroutine("Blink");
     }
@@ -19,9 +20,10 @@ public class TextBlinking : MainRoot {
         while (true)
         {
             Color now = text.color;
-            Debug.Log("a:" + now.a);
+            //Debug.Log("a:" + now.a);
             if (text.color.a > 1.0f) text.color = new Color(now.r, now.g, now.b, 0.0f);
             else text.color = new Color(now.r, now.g, now.b, now.a + change);
+            if (Input.anyKey) yield break;
             yield return new WaitForSeconds(fps);
         }
     }

@@ -20,14 +20,7 @@ public class SelectMain : MainRoot {
         public string FileName;
         public string JacketFileName;
         public int bpm;
-        public Difficulty difficulty;
-    }
-    [Serializable]
-    public class Difficulty
-    {
-        public LevelInfo easy;
-        public LevelInfo normal;
-        public LevelInfo hard;
+        public LevelInfo[] difficulty;
     }
     [Serializable]
     public class LevelInfo

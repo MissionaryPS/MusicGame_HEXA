@@ -10,7 +10,6 @@ public class ButtonManager : SelectMain {
     public MusicList musicList;
     public List<Material> ButtonSurface = new List<Material>();
     int devide = 15;
-    int difficulty = 0;
     //private ButtonMaterial Button;
     GameObject[] MusicButton;
 

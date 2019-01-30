@@ -532,8 +532,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1514ad224404fdb438809fe211f94cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KeyConfig: 760000006400000072000000750000006b0000006e000000
-  isOnKey: 000000000000
   fps: 0.033333335
   LoadData: 0
   HexBase: {fileID: 1971270529617546, guid: 16933ad2d24626c41a6f860ed737526e, type: 2}
@@ -561,8 +559,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a03f06f8e9c70a409b5c8035ac7a035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KeyConfig: 760000006400000072000000750000006b0000006e000000
-  isOnKey: 000000000000
   fps: 0.033333335
   LoadData: 0
   HexBase: {fileID: 1971270529617546, guid: 16933ad2d24626c41a6f860ed737526e, type: 2}
@@ -581,8 +577,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0834a50ec9796f148b985b029846e31c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KeyConfig: 760000006400000072000000750000006b0000006e000000
-  isOnKey: 000000000000
   fps: 0.033333335
   LoadData: 0
   HexBase: {fileID: 0}
@@ -597,10 +591,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ba6dcb933775a4190b94c7c00a251f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KeyConfig: 760000006400000072000000750000006b0000006e000000
-  isOnKey: 000000000000
   fps: 0.033333335
   LoadData: 0
   HexBase: {fileID: 0}
+  carrier: {fileID: 1664897140528204, guid: 79a101980ec4b5849af1cdc08a78f81e, type: 2}
   musicList:
     music: []

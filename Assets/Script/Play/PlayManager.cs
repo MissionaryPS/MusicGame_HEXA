@@ -14,29 +14,31 @@ public class PlayManager : PlayMain {
     public AudioSource music;
     public Data mapdata;
 
-    private void Start()
+    void Start()
     {
         Debug.Log("playMain start.");
-        for (int i = 0; i < 6; i++) isOnKey[i] = false; //キーの初期化
-        GameObject carrier = GameObject.Find("Carrier");
+        UpdateInput();
+        GameObject carrier = GameObject.Find("carrier");
         select = carrier.GetComponent<Carrier>().GetSelect();
-
         //描画系の有効化
         draw = gameObject.GetComponent<Draw>();
 
         data = gameObject.GetComponent<MusicData>();
         music = gameObject.GetComponent<AudioSource>();
+        Debug.Log("Loading");
         StartCoroutine("Load");
     }
 
     public IEnumerator Load()
     {
         //譜面読み込み
-        yield return data.StartCoroutine("LoadJson", select.FileName);
+        Debug.Log(select.FileName);
+        yield return data.StartCoroutine("LoadJson", select.FileName + "/" + diff[select.difficulty] + ".json");
+        //yield return data.StartCoroutine("LoadJson", select.FileName);
         Debug.Log("bpm:" + mapdata.bpm + " / startTime:" + mapdata.startTime);
 
         //音源読み込み
-        yield return data.StartCoroutine("LoadAudioClip", select.FileName +"/"+diff[select.difficulty]+".json");
+        yield return data.StartCoroutine("LoadAudioClip", select.FileName);
 
         //判定有効化
         judge = gameObject.GetComponent<Judge>();
@@ -59,7 +61,7 @@ public class PlayManager : PlayMain {
         int bpm = 190;
         while (true)
         {
-
+            bool willEnd = false;
             if (music.isPlaying)
             {
                 playTime = music.time;
@@ -86,11 +88,17 @@ public class PlayManager : PlayMain {
             {
                 for (int key = 0; key < 6; key++)
                 {
+                    if (willEnd)
+                    {
+                        yield return StartCoroutine("EndMusic");
+                        yield break;
+                    }
                     if (mapdata.map[NextNotes].note[key] != 0) draw.CreateNotes(NextNotes, key);
                 }
                 NextNotes++;
                 NextTime = Notes2Time(mapdata.map[NextNotes].timing, bpm, startTime);
-                Debug.Log(playTime + CreateTime + " >= " + NextTime);
+                if (mapdata.map[NextNotes].note[0] < 0) willEnd = true;
+                Debug.Log(playTime + CreateTime + " >= " + NextTime );
             }
 
             for (int key = 0; key < 6; key++)
@@ -131,8 +139,10 @@ public class PlayManager : PlayMain {
 
     IEnumerator EndMusic()
     {
+        Debug.Log("Music End");
         while (music.volume > 0)
         {
+            Debug.Log(music.volume);
             music.volume -= 0.1f;
             yield return new WaitForSeconds(fps);
         }

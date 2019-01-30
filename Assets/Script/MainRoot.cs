@@ -6,12 +6,17 @@ using System;
 
 public class MainRoot : MonoBehaviour {
 
-    public KeyCode[] KeyConfig = new KeyCode[8] { KeyCode.V, KeyCode.D, KeyCode.R, KeyCode.U, KeyCode.K, KeyCode.N, KeyCode.Space, KeyCode.Escape };
-    public bool[] isOnKey = new bool[8];
+    static public KeyCode[] KeyConfig = new KeyCode[8] { KeyCode.V, KeyCode.D, KeyCode.R, KeyCode.U, KeyCode.K, KeyCode.N, KeyCode.Space, KeyCode.Escape };
+    static public bool[] isOnKey = new bool[8];
     public float fps = 1.0f / 30;
 
     public bool LoadData = false;
     
+    public void UpdateInput()
+    {
+        for (int i = 0; i < KeyConfig.Length; i++) isOnKey[i] = Input.GetKey(KeyConfig[i]);
+    }
+
     public class Select2Play
     {
         public int difficulty;

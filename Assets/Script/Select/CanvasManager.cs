@@ -16,7 +16,7 @@ public class CanvasManager : SelectMain {
 
     public void SetUp (int center, int difficulty, MusicList list) {
         musicList = list;
-        foreach (Music music in musicList.music) Debug.Log(music.title+music.difficulty.easy.Level);
+        foreach (Music music in musicList.music) Debug.Log(music.title+music.difficulty[0].Level);
         ChangeMusic(center, difficulty);
     }
 
@@ -29,12 +29,8 @@ public class CanvasManager : SelectMain {
         else
         {
             MusicTitle.text = musicList.music[center - 1].title;
-            switch (difficulty) {
-                case 0: Level.text = musicList.music[center - 1].difficulty.easy.Level.ToString(); break;
-                case 1: Level.text = musicList.music[center - 1].difficulty.normal.Level.ToString(); break;
-                case 2: Level.text = musicList.music[center - 1].difficulty.hard.Level.ToString(); break;
-                default: Level.text = ""; break;
-            }
+            Level.text = musicList.music[center - 1].difficulty[difficulty].Level.ToString();
+
             
         }
     }
