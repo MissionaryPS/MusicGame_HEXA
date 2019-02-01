@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayManager : PlayMain {
 
@@ -13,6 +14,7 @@ public class PlayManager : PlayMain {
     private Select2Play select;
     public AudioSource music;
     public Data mapdata;
+    private List<DirectMap> directMap;
 
     void Start()
     {
@@ -34,6 +36,7 @@ public class PlayManager : PlayMain {
         //譜面読み込み
         Debug.Log(select.FileName);
         yield return data.StartCoroutine("LoadJson", select.FileName + "/" + diff[select.difficulty] + ".json");
+        directMap = Map2Direct(mapdata);
         //yield return data.StartCoroutine("LoadJson", select.FileName);
         Debug.Log("bpm:" + mapdata.bpm + " / startTime:" + mapdata.startTime);
 
@@ -77,7 +80,6 @@ public class PlayManager : PlayMain {
             }
 
 
-            //playTime += fps;
             /*
              * 
              * パーフェクトの何秒前にノーツを生成するか
@@ -86,13 +88,13 @@ public class PlayManager : PlayMain {
 
             if (playTime + CreateTime + notesDelay >= NextTime)
             {
+                if (willEnd)
+                {
+                    yield return StartCoroutine("EndMusic");
+                    break;
+                }
                 for (int key = 0; key < 6; key++)
                 {
-                    if (willEnd)
-                    {
-                        yield return StartCoroutine("EndMusic");
-                        yield break;
-                    }
                     if (mapdata.map[NextNotes].note[key] != 0) draw.CreateNotes(NextNotes, key);
                 }
                 NextNotes++;
@@ -129,23 +131,39 @@ public class PlayManager : PlayMain {
             if (Input.GetKey(KeyConfig[7]))
             {
                 yield return StartCoroutine("EndMusic");
-                yield break;
+                Debug.Log("END");
+                break;
             }
-
-
             yield return new WaitForSeconds(fps);
         }
+        SceneManager.LoadScene("Result");
+        yield break;
     }
 
     IEnumerator EndMusic()
     {
+        float decrease = 0.01f;
         Debug.Log("Music End");
         while (music.volume > 0)
         {
             Debug.Log(music.volume);
-            music.volume -= 0.1f;
+            music.volume -= decrease; 
             yield return new WaitForSeconds(fps);
         }
+        music.Stop();
         yield break;
     }
+
+    List<DirectMap> Map2Direct(Data data)
+    {
+        List<DirectMap> directMaps = new List<DirectMap>();
+        foreach(Map map in data.map)
+        {
+            DirectMap directMap = new DirectMap();
+            directMap.timing = Notes2Time(map.timing, data.bpm, (float)data.startTime / 100);
+            directMaps.Add(directMap);
+        }
+        return directMaps;
+    }
+
 }

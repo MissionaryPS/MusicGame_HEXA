@@ -22,6 +22,13 @@ public class PlayMain : MainRoot {
         public bool isHead;
     }
 
+    public class DirectMap
+    {
+        public float timing;
+        public int[] note;
+        public bool isHead;
+    }
+
 
     public float speed;
     public float notesDelay = 0.25f;

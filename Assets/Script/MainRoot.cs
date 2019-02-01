@@ -28,14 +28,9 @@ public class MainRoot : MonoBehaviour {
 
     public class Play2Result
     {
-        public int difficulty;
-        public int level;
-        public string title;
-        public string artist;
-        //ここから追加の情報
-        public int score;
+        public int Score;
         public int MaxCombo;
-        public int allTarget;
+        public int AllTarget;
         public int SkinScore;
     }
 

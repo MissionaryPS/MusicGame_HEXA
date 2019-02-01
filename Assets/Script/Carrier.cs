@@ -22,10 +22,14 @@ public class Carrier : MainRoot {
     {
         return select;
     }
-    public void PassResult(Play2Result data)
+    public void PassResult(int Score, int MaxCombo, int AllTarget, int SkinScore)
     {
-        result = data;
+        result.Score = Score;
+        result.MaxCombo = MaxCombo;
+        result.AllTarget = AllTarget;
+        result.SkinScore = SkinScore;
     }
+
 
     public Play2Result GetResult()
     {
