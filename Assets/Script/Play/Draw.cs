@@ -20,7 +20,7 @@ public class Draw : MainRoot {
 
     private GameObject[] Key = new GameObject[6];
     private MeshRenderer[] KeyColor = new MeshRenderer[6];
-    private Color[] EffColor = new Color[2];
+    private List<Color> EffColor = new List<Color>();
     private Color DefColor;
 
     public void TurnOn(int i, int color)
@@ -54,8 +54,10 @@ public class Draw : MainRoot {
         CreateJudgeLine();
         CreateLaneLine();
         DefColor = new Color(1.0f, 1.0f, 1.0f);
-        EffColor[0] = new Color(1.0f, 0.5f, 1.0f);
-        EffColor[1] = new Color(1.0f, 1.0f, 0.1f);
+        EffColor.Add(new Color(1.0f, 0.5f, 1.0f));
+        EffColor.Add(new Color(1.0f, 1.0f, 0.1f));
+        EffColor.Add(new Color(1.0f, 0.6f, 0.0f));
+        EffColor.Add(new Color(0.5f, 0.7f, 0.0f));
     }
 
     private Mesh SetupKeyMesh(int i)
@@ -177,11 +179,11 @@ public class Draw : MainRoot {
     }
     [SerializeField]
     GameObject NotePrefab;
-    public void CreateNotes(int n, int key)
+    public void CreateNotes(int n, int key, float CreateTime)
     {
         GameObject note;
         note = Instantiate(NotePrefab) as GameObject;
-        note.GetComponent<NotesMove>().SetNotesData(n, key, HoleRadius, 0.1f);
+        note.GetComponent<NotesMove>().SetNotesData(n, key, HoleRadius, (JudgePoint-HoleRadius)/CreateTime);
         note.GetComponent<NotesMove>().StartCoroutine("Move");
 
     }

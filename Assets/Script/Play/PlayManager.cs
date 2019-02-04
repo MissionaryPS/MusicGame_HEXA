@@ -11,10 +11,11 @@ public class PlayManager : PlayMain {
     private Draw draw;
     private Judge judge;
     private MusicData data;
+
     private Select2Play select;
     public AudioSource music;
     public Data mapdata;
-    private List<DirectMap> directMap;
+    public List<DirectMap> directMap;
 
     void Start()
     {
@@ -33,22 +34,24 @@ public class PlayManager : PlayMain {
 
     public IEnumerator Load()
     {
+        //音源読み込み
+        yield return data.StartCoroutine("LoadAudioClip", select.FileName);
+
         //譜面読み込み
         Debug.Log(select.FileName);
-        yield return data.StartCoroutine("LoadJson", select.FileName + "/" + diff[select.difficulty] + ".json");
-        directMap = Map2Direct(mapdata);
+        yield return data.StartCoroutine("LoadJsonMap", select.FileName + "/" + diff[select.difficulty] + ".json");
+        directMap = new List<DirectMap>();
+        directMap = Map2Direct(mapdata,music);    //配列に変換
         //yield return data.StartCoroutine("LoadJson", select.FileName);
         Debug.Log("bpm:" + mapdata.bpm + " / startTime:" + mapdata.startTime);
 
-        //音源読み込み
-        yield return data.StartCoroutine("LoadAudioClip", select.FileName);
 
         //判定有効化
         judge = gameObject.GetComponent<Judge>();
         judge.SetUpJudge();
         //準備ができたらコルーチンスタート
-        Debug.Log("Start");
         //yield return StartCoroutine("WaitPressSpace");
+        Debug.Log("Start");
         StartCoroutine("playMusicGame");
         yield break;
     }
@@ -56,53 +59,28 @@ public class PlayManager : PlayMain {
     IEnumerator playMusicGame()
     {
         Debug.Log("StartCoroutine");
-        float playTime = -1.0f;
-        float CreateTime = 1.0f;
-        int NextNotes = 0;
-        float startTime = mapdata.startTime / 100;
-        float NextTime = startTime;
-        int bpm = 190;
+        float CreateTime = Notes2Time(96, mapdata.bpm, 0) / HiSpeed;
+        Debug.Log("CreateTime:" + CreateTime);
+        float playTime = -CreateTime;
+        int NextCreate = 0;
         while (true)
         {
-            bool willEnd = false;
+            //音源再生待機→再生まで
             if (music.isPlaying)
             {
-                playTime = music.time;
+                playTime = music.time - NoteOffset;
             }
             else
             {
                 playTime += fps;
-                if(playTime > 0)
+                if(playTime > 0 - NoteOffset)
                 {
                     Debug.Log("MusicStart");
                     music.Play();
                 }
             }
 
-
-            /*
-             * 
-             * パーフェクトの何秒前にノーツを生成するか
-             * 次のノーツ生成のタイミングをノーツを生成したタイミングで確認、変数に保持。
-             */
-
-            if (playTime + CreateTime + notesDelay >= NextTime)
-            {
-                if (willEnd)
-                {
-                    yield return StartCoroutine("EndMusic");
-                    break;
-                }
-                for (int key = 0; key < 6; key++)
-                {
-                    if (mapdata.map[NextNotes].note[key] != 0) draw.CreateNotes(NextNotes, key);
-                }
-                NextNotes++;
-                NextTime = Notes2Time(mapdata.map[NextNotes].timing, bpm, startTime);
-                if (mapdata.map[NextNotes].note[0] < 0) willEnd = true;
-                Debug.Log(playTime + CreateTime + " >= " + NextTime );
-            }
-
+            //鍵盤を押したときの処理
             for (int key = 0; key < 6; key++)
             {
                 if (Input.GetKey(KeyConfig[key]) != isOnKey[key])
@@ -119,21 +97,36 @@ public class PlayManager : PlayMain {
                         isOnKey[key] = true;
                     }
                 }
-                /*
-                if (Notes2Time(mapdata.map[judge.Next[key]].timing, bpm, startTime) < playTime + judge.targetArea)
-                {
-                    judge.Miss(key);
-                    Debug.Log("Miss!");
-                }
-                */
-
             }
+
+            //譜面読み込み・ノーツ生成処理
+            if (playTime + CreateTime> directMap[NextCreate].timing) {
+                for(int i = 0; i < 6; i++)
+                {
+                    if(directMap[NextCreate].note[i] == 1)
+                    {
+                        draw.CreateNotes(NextCreate, i, CreateTime);
+                    }
+                }
+                NextCreate++;
+                if(directMap[NextCreate].note[0] < 0)
+                {
+                    yield return StartCoroutine("EndMusic");
+                    break;
+                }
+            }
+
+            //
+            judge.CheckMiss(playTime);
+
+            //中断処理(Escキー)
             if (Input.GetKey(KeyConfig[7]))
             {
                 yield return StartCoroutine("EndMusic");
                 Debug.Log("END");
                 break;
             }
+
             yield return new WaitForSeconds(fps);
         }
         SceneManager.LoadScene("Result");
@@ -144,9 +137,9 @@ public class PlayManager : PlayMain {
     {
         float decrease = 0.01f;
         Debug.Log("Music End");
-        while (music.volume > 0)
+        while (music.isPlaying && music.volume > 0)
         {
-            Debug.Log(music.volume);
+            //Debug.Log(music.volume);
             music.volume -= decrease; 
             yield return new WaitForSeconds(fps);
         }
@@ -154,15 +147,24 @@ public class PlayManager : PlayMain {
         yield break;
     }
 
-    List<DirectMap> Map2Direct(Data data)
+    List<DirectMap> Map2Direct(Data data, AudioSource music)
     {
+        Debug.Log("Jsonmap:" + data.map.Length);
         List<DirectMap> directMaps = new List<DirectMap>();
         foreach(Map map in data.map)
         {
             DirectMap directMap = new DirectMap();
             directMap.timing = Notes2Time(map.timing, data.bpm, (float)data.startTime / 100);
+            directMap.note = map.note;
+            directMap.isHead = map.isHead;
             directMaps.Add(directMap);
         }
+        DirectMap EndMap = new DirectMap();
+        EndMap.timing = music.clip.length;
+        EndMap.note = new int[6] { -1, 0, 0, 0, 0, 0 };
+        EndMap.isHead = false;
+        directMaps.Add(EndMap);
+        Debug.Log("directmap:"+directMaps.Count);
         return directMaps;
     }
 

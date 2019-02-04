@@ -31,7 +31,7 @@ public class MusicData : PlayMain {
     }
 
 
-    public IEnumerator LoadJson(string FilePath)
+    public IEnumerator LoadJsonMap(string FilePath)
     {
         Debug.Log("LoadJson FilePath:" + FilePath);
         using (var www = new WWW("file:///" + Application.dataPath + "/Resources/" + FilePath))

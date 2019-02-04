@@ -4,39 +4,36 @@ using UnityEngine;
 
 public class Judge : PlayMain {
 
-    PlayManager timeLine;
-    int bpm;
-    float startTime;
+    PlayManager Manager;
 
     public int[] Next = new int[6];
 
     //public int[,] humen = new int[7,48*4*4];
     public void SetUpJudge()
     {
-        timeLine = gameObject.GetComponent<PlayManager>();
-        bpm = timeLine.mapdata.bpm;
-        startTime = timeLine.mapdata.startTime / 100;
+        Manager = gameObject.GetComponent<PlayManager>();
         for (int key = 0; key < 6; key++) Next[key] = SearchNext(0, key);
     }
-    
-    public float perArea = 0.3f;
-    public float targetArea = 0.5f;
-    public int OnKey(int key,float time)
+
+    public int OnKey(int key, float time)
     {
-        
-        float target = Notes2Time(timeLine.mapdata.map[Next[key]].timing,bpm,startTime);
-        float perS,perE;
+
+        float target = Manager.directMap[Next[key]].timing;
+        float perS, perE;
         perS = time - perArea;
         perE = time + perArea;
 
-        Debug.Log(perS + "/" + target + "/" + perE);
-        if (perS < target && target < perE)
+        Debug.Log(key + ":" + perS + "/" + target + "/" + perE);
+        if (time - targetArea < target && target < time + targetArea)
         {
-            timeLine.mapdata.map[Next[key]].note[key] *= -1;
-            Next[key] = SearchNext(Next[key], key);
-            return 1;
+            if(Next[key] < Manager.directMap.Count) Next[key] = SearchNext(Next[key], key);
+            if (perS < target && target < perE)
+            {
+                Manager.mapdata.map[Next[key]].note[key] *= -1;
+                return 1;
+            }
+            return 2;
         }
-
         //Debug.Log(perS);
         //Debug.Log(perE);
 
@@ -56,21 +53,23 @@ public class Judge : PlayMain {
         return 0;
     }
 
-    public void Miss(int key)
+    public void CheckMiss(float PlayTime)
     {
-        timeLine.mapdata.map[Next[key]].note[key] *= -1;
-        Next[key] = SearchNext(Next[key], key);
+        for (int key = 0; key < 6; key++) {
+            if (Manager.directMap[Next[key]].timing + targetArea < PlayTime)
+            {
+                Debug.Log("Miss:key" + key);
+                Manager.directMap[Next[key]].note[key] *= -1;
+                if (Next[key] < Manager.directMap.Count) Next[key] = SearchNext(Next[key], key);
+            }
+        }
     }
 
     private int SearchNext(int n, int key) {
-        int ret;
-        for (int i = n; ; i++) {
-            if (timeLine.mapdata.map[i].note[key] > 0) {
-                ret = i;
-                break;
-            }
+        for (int i = n; i < Manager.directMap.Count ; i++) {
+            if (Manager.directMap[i].note[key] > 0) return i;
         }
-        return ret;
+        return Manager.directMap.Count - 1;
     }
 
 

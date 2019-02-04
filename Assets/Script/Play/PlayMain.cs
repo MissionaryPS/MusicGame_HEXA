@@ -29,13 +29,16 @@ public class PlayMain : MainRoot {
         public bool isHead;
     }
 
-
-    public float speed;
-    public float notesDelay = 0.25f;
-
+    public float NoteOffset = -1.5f;
+    public float HiSpeed = 3.0f;
+    
+    //judge
+    public float targetArea = 0.5f;
+    public float perArea = 0.3f;
 
     IEnumerator WaitPressSpace()
     {
+        Debug.Log("Now Waiting...");
         while (true)
         {
             if (Input.GetKey(KeyCode.Space)) yield break;

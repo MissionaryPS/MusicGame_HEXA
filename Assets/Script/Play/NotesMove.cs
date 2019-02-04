@@ -18,7 +18,7 @@ public class NotesMove : MainRoot {
     {
         timeLine = GameObject.Find("ScriptManager").GetComponent<PlayManager>(); 
         Radius = StartRadius;
-        Speed = BaseSpeed;
+        Speed = BaseSpeed*fps;
         Key = key;
         NTime = n;
         //頂点インデクス
@@ -39,14 +39,13 @@ public class NotesMove : MainRoot {
     
     IEnumerator Move()
     {
-        bool end = false;
-        while (!end)
+        while (true)
         {
             Radius += Speed;
             var mesh = gameObject.GetComponent<MeshFilter>().mesh;
             mesh.SetVertices(CalcPoint(Key, Radius));
 
-            if (timeLine.mapdata.map[NTime].note[Key] < 0 || Radius > 5.6f) 
+            if (timeLine.directMap[NTime].note[Key] < 0 || Radius > 5.6f) 
             {
                 Destroy(gameObject);
                 yield break;
