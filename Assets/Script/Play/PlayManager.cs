@@ -12,7 +12,7 @@ public class PlayManager : PlayMain {
     private Judge judge;
     private MusicData data;
     private TextManager canvas;
-
+    private Carrier carrier;
     private Select2Play select;
     public AudioSource music;
     public Data mapdata;
@@ -21,19 +21,20 @@ public class PlayManager : PlayMain {
     public float ComboRatio;
     public int AllTarget;
 
-
     int Score = 0;
     float SkinScore = 0.0f;
     float BonusScore = 0.0f;
     int Combo = 0;
+    int MaxCombo = 0;
+    int[] breakdown = new int[4] { 0, 0, 0, 0 };
 
     void Start()
     {
         Debug.Log("playMain start.");
         UpdateInput();
         //Selectシーンの変数の受け渡し
-        GameObject carrier = GameObject.Find("carrier");
-        select = carrier.GetComponent<Carrier>().GetSelect();
+        carrier = GameObject.Find("carrier").GetComponent<Carrier>();
+        select = carrier.GetSelect();
 
         //各クラスの取得
         draw = gameObject.GetComponent<Draw>();
@@ -112,6 +113,7 @@ public class PlayManager : PlayMain {
                         draw.TurnOn(key, judgeResult);
                         if(judgeResult > 0)
                         {
+                            breakdown[judgeResult]++;
                             SkinScore += BaseScore * ScoreRatio[judgeResult - 1];
                             BonusScore += BaseScore*ComboRatio*(++Combo);
                             Score = (int)SkinScore + (int)BonusScore;
@@ -137,14 +139,16 @@ public class PlayManager : PlayMain {
                 
             }
 
-            //
+            //ミス判定
             if (judge.CheckMiss(playTime))
             {
+                breakdown[0]++;
+                if (MaxCombo < Combo) Combo = MaxCombo;
                 Combo = 0;
                 canvas.Chenge(Score, Combo);
             }
 
-            //中断処理(Escキー)
+            //終了処理(中断はEscキー)
             if (Input.GetKey(KeyConfig[7]) || (MapEnd && !music.isPlaying))
             {
                 yield return StartCoroutine("EndMusic");
@@ -154,6 +158,7 @@ public class PlayManager : PlayMain {
 
             yield return new WaitForSeconds(fps);
         }
+        carrier.PassResult(Score, MaxCombo, AllTarget, (int)BaseScore, breakdown);
         SceneManager.LoadScene("Result");
         yield break;
     }

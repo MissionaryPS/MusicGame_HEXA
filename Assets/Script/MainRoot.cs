@@ -34,8 +34,9 @@ public class MainRoot : MonoBehaviour {
     {
         public int Score;
         public int MaxCombo;
+        public int AllTarget;
         public int SkinScore;
-        public 
+        public int[] breakdown;
     }
 
 
