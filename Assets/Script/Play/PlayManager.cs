@@ -7,27 +7,39 @@ public class PlayManager : PlayMain {
 
     string[] diff = new string[3] { "easy", "normal", "hard" };
 
-    //読みこみクラス
+    //取得するクラス
     private Draw draw;
     private Judge judge;
     private MusicData data;
+    private TextManager canvas;
 
     private Select2Play select;
     public AudioSource music;
     public Data mapdata;
     public List<DirectMap> directMap;
+    public float BaseScore;
+    public float ComboRatio;
+    public int AllTarget;
+
+
+    int Score = 0;
+    float SkinScore = 0.0f;
+    float BonusScore = 0.0f;
+    int Combo = 0;
 
     void Start()
     {
         Debug.Log("playMain start.");
         UpdateInput();
+        //Selectシーンの変数の受け渡し
         GameObject carrier = GameObject.Find("carrier");
         select = carrier.GetComponent<Carrier>().GetSelect();
-        //描画系の有効化
-        draw = gameObject.GetComponent<Draw>();
 
+        //各クラスの取得
+        draw = gameObject.GetComponent<Draw>();
         data = gameObject.GetComponent<MusicData>();
         music = gameObject.GetComponent<AudioSource>();
+        canvas = GameObject.Find("Canvas").GetComponent<TextManager>();
         Debug.Log("Loading");
         StartCoroutine("Load");
     }
@@ -44,7 +56,9 @@ public class PlayManager : PlayMain {
         directMap = Map2Direct(mapdata,music);    //配列に変換
         //yield return data.StartCoroutine("LoadJson", select.FileName);
         Debug.Log("bpm:" + mapdata.bpm + " / startTime:" + mapdata.startTime);
-
+        AllTarget = GetAllTarget(directMap);
+        BaseScore = TheoryScore / AllTarget;
+        ComboRatio = TheoryBonus * 2 / (BaseScore * AllTarget * (AllTarget + 1));
 
         //判定有効化
         judge = gameObject.GetComponent<Judge>();
@@ -61,8 +75,9 @@ public class PlayManager : PlayMain {
         Debug.Log("StartCoroutine");
         float CreateTime = Notes2Time(96, mapdata.bpm, 0) / HiSpeed;
         Debug.Log("CreateTime:" + CreateTime);
-        float playTime = -CreateTime;
+        float playTime = 0;
         int NextCreate = 0;
+        bool MapEnd = false;
         while (true)
         {
             //音源再生待機→再生まで
@@ -73,7 +88,7 @@ public class PlayManager : PlayMain {
             else
             {
                 playTime += fps;
-                if(playTime > 0 - NoteOffset)
+                if(!MapEnd && playTime > 0 - NoteOffset)
                 {
                     Debug.Log("MusicStart");
                     music.Play();
@@ -93,14 +108,23 @@ public class PlayManager : PlayMain {
                     }
                     else
                     {
-                        draw.TurnOn(key, judge.OnKey(key, playTime));
+                        int judgeResult = judge.OnKey(key, playTime);
+                        draw.TurnOn(key, judgeResult);
+                        if(judgeResult > 0)
+                        {
+                            SkinScore += BaseScore * ScoreRatio[judgeResult - 1];
+                            BonusScore += BaseScore*ComboRatio*(++Combo);
+                            Score = (int)SkinScore + (int)BonusScore;
+                            canvas.Chenge(Score, Combo);
+                        }
                         isOnKey[key] = true;
                     }
                 }
             }
 
             //譜面読み込み・ノーツ生成処理
-            if (playTime + CreateTime> directMap[NextCreate].timing) {
+            if (!MapEnd　&& playTime + CreateTime> directMap[NextCreate].timing) {
+
                 for(int i = 0; i < 6; i++)
                 {
                     if(directMap[NextCreate].note[i] == 1)
@@ -109,18 +133,19 @@ public class PlayManager : PlayMain {
                     }
                 }
                 NextCreate++;
-                if(directMap[NextCreate].note[0] < 0)
-                {
-                    yield return StartCoroutine("EndMusic");
-                    break;
-                }
+                if (directMap[NextCreate].note[0] < 0) MapEnd = true;
+                
             }
 
             //
-            judge.CheckMiss(playTime);
+            if (judge.CheckMiss(playTime))
+            {
+                Combo = 0;
+                canvas.Chenge(Score, Combo);
+            }
 
             //中断処理(Escキー)
-            if (Input.GetKey(KeyConfig[7]))
+            if (Input.GetKey(KeyConfig[7]) || (MapEnd && !music.isPlaying))
             {
                 yield return StartCoroutine("EndMusic");
                 Debug.Log("END");
@@ -145,6 +170,15 @@ public class PlayManager : PlayMain {
         }
         music.Stop();
         yield break;
+    }
+
+    int GetAllTarget(List<DirectMap> data)
+    {
+        int counter = 0;
+        foreach (DirectMap map in data)
+            foreach (int note in map.note)
+                if (note > 0) counter++;
+        return counter;
     }
 
     List<DirectMap> Map2Direct(Data data, AudioSource music)

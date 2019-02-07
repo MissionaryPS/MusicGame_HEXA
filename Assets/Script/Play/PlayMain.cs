@@ -31,7 +31,8 @@ public class PlayMain : MainRoot {
 
     public float NoteOffset = -1.5f;
     public float HiSpeed = 3.0f;
-    
+
+
     //judge
     public float targetArea = 0.5f;
     public float perArea = 0.3f;

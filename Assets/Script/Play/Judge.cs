@@ -17,7 +17,7 @@ public class Judge : PlayMain {
 
     public int OnKey(int key, float time)
     {
-
+        int ret = 0;
         float target = Manager.directMap[Next[key]].timing;
         float perS, perE;
         perS = time - perArea;
@@ -26,43 +26,30 @@ public class Judge : PlayMain {
         Debug.Log(key + ":" + perS + "/" + target + "/" + perE);
         if (time - targetArea < target && target < time + targetArea)
         {
-            if(Next[key] < Manager.directMap.Count) Next[key] = SearchNext(Next[key], key);
+            Manager.mapdata.map[Next[key]].note[key] *= -1;
+            ret = 2;
             if (perS < target && target < perE)
             {
-                Manager.mapdata.map[Next[key]].note[key] *= -1;
-                return 1;
-            }
-            return 2;
-        }
-        //Debug.Log(perS);
-        //Debug.Log(perE);
-
-        /*
-        for(i = Next[key]; timeLine.levelInfo.map[i].timing < perE; i++)
-        {
-            if (timeLine.levelInfo.map[i].note[key] > 0)
-            {
-                timeLine.levelInfo.map[i].note[key] *= -1;
-                Debug.Log("perfect!");
-                Debug.Log(time);
-                Debug.Log(Time2Notes(time, bpm, startTime));
-                return 1;
+                ret = 1;
             }
         }
-        */
-        return 0;
+        if (Next[key] < Manager.directMap.Count) Next[key] = SearchNext(Next[key], key);
+        return ret;
     }
 
-    public void CheckMiss(float PlayTime)
+    public bool CheckMiss(float PlayTime)
     {
+        bool miss = false;
         for (int key = 0; key < 6; key++) {
-            if (Manager.directMap[Next[key]].timing + targetArea < PlayTime)
+            if (Manager.directMap[Next[key]].timing + targetArea < PlayTime && Manager.directMap[Next[key]].note[key] > 0)
             {
-                Debug.Log("Miss:key" + key);
+                Debug.Log("Miss:key" + key +", note:"+ Manager.directMap[Next[key]].note[key] );
                 Manager.directMap[Next[key]].note[key] *= -1;
                 if (Next[key] < Manager.directMap.Count) Next[key] = SearchNext(Next[key], key);
+                miss = true;
             }
         }
+        return miss;
     }
 
     private int SearchNext(int n, int key) {
