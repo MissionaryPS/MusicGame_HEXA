@@ -143,7 +143,7 @@ public class PlayManager : PlayMain {
             if (judge.CheckMiss(playTime))
             {
                 breakdown[0]++;
-                if (MaxCombo < Combo) Combo = MaxCombo;
+                if (MaxCombo < Combo) MaxCombo = Combo;
                 Combo = 0;
                 canvas.Chenge(Score, Combo);
             }
@@ -158,7 +158,7 @@ public class PlayManager : PlayMain {
 
             yield return new WaitForSeconds(fps);
         }
-        carrier.PassResult(Score, MaxCombo, AllTarget, (int)BaseScore, breakdown);
+        carrier.PassResult(Score, MaxCombo, AllTarget, (int)SkinScore, breakdown);
         SceneManager.LoadScene("Result");
         yield break;
     }

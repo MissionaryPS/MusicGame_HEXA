@@ -29,7 +29,7 @@ public class PlayMain : MainRoot {
         public bool isHead;
     }
 
-    public float NoteOffset = -1.5f;
+    public float NoteOffset = -1.2f;
     public float HiSpeed = 3.0f;
 
 

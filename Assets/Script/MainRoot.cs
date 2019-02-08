@@ -55,7 +55,7 @@ public class MainRoot : MonoBehaviour {
             index.Add((i + 1 <= 6) ? i + 1 : 1);
         }
         var mesh = new Mesh();
-        mesh.vertices = CalcVertices(center, radius).ToArray();
+        mesh.vertices = CalcVertices(center, radius, 6).ToArray();
         mesh.triangles = index.ToArray();
         GameObject Hexagon = Instantiate(HexBase) as GameObject;
         Hexagon.GetComponent<MeshFilter>().sharedMesh = mesh;
@@ -63,13 +63,13 @@ public class MainRoot : MonoBehaviour {
         return Hexagon;
     }
 
-    public List<Vector3> CalcVertices(Vector3 center, float radius)
+    public List<Vector3> CalcVertices(Vector3 center, float radius, int vertNum)
     {
         List<Vector3> vertices = new List<Vector3>();
         vertices.Add(center);
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < vertNum; i++)
         {
-            float rad = (90f - 60f * i) * Mathf.Deg2Rad;
+            float rad = (90f - (360f/vertNum) * i) * Mathf.Deg2Rad;
             float x = radius * Mathf.Cos(rad);
             float y = radius * Mathf.Sin(rad);
             vertices.Add(center + new Vector3(x, y, 0));
