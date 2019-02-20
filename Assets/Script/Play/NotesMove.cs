@@ -9,18 +9,17 @@ public class NotesMove : MainRoot {
     private float Speed;
     private int Key;
     private int NTime;
-    private Vector3 speed1;
-    private Vector3 speed2;
-    private Vector3 KillPoint;
-    private float noteWidth = 0.2f;
+    private float KillPoint;
+    private float noteWidth = 0.5f;
 
-    public void SetNotesData(int n, int key, float StartRadius, float BaseSpeed)
+    public void SetNotesData(int n, int key, float StartRadius, float EndRadius, float BaseSpeed)
     {
         timeLine = GameObject.Find("ScriptManager").GetComponent<PlayManager>(); 
         Radius = StartRadius;
         Speed = BaseSpeed*fps;
         Key = key;
         NTime = n;
+        KillPoint = EndRadius;
         //頂点インデクス
         List<int> triangles = new List<int>();
         triangles.Add(0);
@@ -45,7 +44,7 @@ public class NotesMove : MainRoot {
             var mesh = gameObject.GetComponent<MeshFilter>().mesh;
             mesh.SetVertices(CalcPoint(Key, Radius));
 
-            if (timeLine.directMap[NTime].note[Key] < 0 || Radius > 5.6f) 
+            if (timeLine.directMap[NTime].note[Key] < 0 || Radius > KillPoint)  
             {
                 Destroy(gameObject);
                 yield break;

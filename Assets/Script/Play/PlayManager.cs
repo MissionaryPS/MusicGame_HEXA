@@ -115,7 +115,7 @@ public class PlayManager : PlayMain {
                         {
                             breakdown[judgeResult]++;
                             SkinScore += BaseScore * ScoreRatio[judgeResult - 1];
-                            BonusScore += BaseScore*ComboRatio*(++Combo);
+                            BonusScore += BaseScore * ComboRatio * (++Combo);
                             Score = (int)SkinScore + (int)BonusScore;
                             canvas.Chenge(Score, Combo);
                         }
@@ -158,7 +158,7 @@ public class PlayManager : PlayMain {
 
             yield return new WaitForSeconds(fps);
         }
-        carrier.PassResult(Score, MaxCombo, AllTarget, (int)SkinScore, breakdown);
+        carrier.PassResult(Score, MaxCombo, AllTarget, (int)SkinScore,(int)BonusScore, breakdown);
         SceneManager.LoadScene("Result");
         yield break;
     }

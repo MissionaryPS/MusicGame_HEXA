@@ -12,11 +12,9 @@ public class Draw : MainRoot {
     [SerializeField]
     private int VerticesCount = 6;    //頂点数
 
-    private const float KeyRadius = 5.5f;    //半径
-    public const float HoleRadius = 1.2f;    //半径
-    public const float JudgePoint = 4.8f;
-
-
+    private const float KeyRadius = 15f;    //半径
+    public float HoleRadius;
+    public float JudgePoint;
 
     private GameObject[] Key = new GameObject[6];
     private MeshRenderer[] KeyColor = new MeshRenderer[6];
@@ -37,6 +35,8 @@ public class Draw : MainRoot {
     //以下、初期化系関数
     private void Start()
     {
+        HoleRadius = KeyRadius * 0.25f;
+        JudgePoint = KeyRadius * 0.9f;
         if (VerticesCount < 3)
         {
             Debug.LogError("頂点数は３以上を指定してください。");
@@ -183,7 +183,7 @@ public class Draw : MainRoot {
     {
         GameObject note;
         note = Instantiate(NotePrefab) as GameObject;
-        note.GetComponent<NotesMove>().SetNotesData(n, key, HoleRadius, (JudgePoint-HoleRadius)/CreateTime);
+        note.GetComponent<NotesMove>().SetNotesData(n, key, HoleRadius, KeyRadius, (JudgePoint-HoleRadius)/CreateTime);
         note.GetComponent<NotesMove>().StartCoroutine("Move");
 
     }

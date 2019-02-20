@@ -8,13 +8,21 @@ public class RaderChart : MainRoot {
     GameObject RaderFill;
     [SerializeField]
     GameObject RaderPrefab;
-    float MaxRadius = 5.0f;
+    [SerializeField]
+    GameObject ScoreTextMesh;
+    [SerializeField]
+    float MaxRadius;
     float MaxTime = 3.0f;
+
+    [SerializeField]
+    Vector3 RaderCenter;
+
+    string[] paraName = { "Score", "SkinScore", "BonusScore" };
 
     // Use this for initialization
     private void Start()
     {
-        RaderBack = CreateHexagon(Vector3.zero, MaxRadius);
+        RaderBack = CreateHexagon(RaderCenter, MaxRadius);
 
         List<int> index = new List<int>();
         for (int i = 1; i <= 3; i++)
@@ -25,7 +33,7 @@ public class RaderChart : MainRoot {
         }
 
         var mesh = new Mesh();
-        mesh.vertices = CalcVertices(new Vector3(0, 0, -1f), 0.01f, 3).ToArray();
+        mesh.vertices = CalcVertices(RaderCenter + new Vector3(0, 0, -1f), 0.01f, 3).ToArray();
         mesh.triangles = index.ToArray();
 
         RaderFill = Instantiate(RaderPrefab) as GameObject;
@@ -58,9 +66,20 @@ public class RaderChart : MainRoot {
         {
             if (radius > MaxRadius) yield break;
             //Debug.Log("radius:" + radius);
-            DrawRader(new Vector3(0, 0, -1f), radius, parameter);
+            DrawRader(RaderCenter + new Vector3(0, 0, -1f), radius, parameter);
             radius += Speed;
             yield return new WaitForSeconds(fps);
         }
     }
+
+    public void DisplayScore(int Score, int index)
+    {
+        float rad = (90f - (360f / 3) * index) * Mathf.Deg2Rad;
+        float x = MaxRadius * 1.2f * Mathf.Cos(rad);
+        float y = MaxRadius * 1.2f * Mathf.Sin(rad);
+        GameObject ViewScore = Instantiate(ScoreTextMesh) as GameObject;
+        ViewScore.GetComponent<Transform>().position = RaderCenter + new Vector3(x, y, 0);
+        ViewScore.GetComponent<TextMesh>().text = paraName[index] + "\n" + Score.ToString();
+    }
+
 }

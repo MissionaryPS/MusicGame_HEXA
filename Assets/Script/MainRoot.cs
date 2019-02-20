@@ -11,15 +11,15 @@ public class MainRoot : MonoBehaviour {
     public float fps = 1.0f / 30;
 
     public float TheoryScore = 1000000.0f;
-    public float TheoryBonus = 50000.0f;
+    public float TheoryBonus = 500000.0f;
     public float[] ScoreRatio = new float[3] { 1.0f, 0.7f, 0.3f };
-    public int[] RankBorder = new int[4] { 600000,  720000, 850000, 1000000 };
-
+    public int[] RankBorder = new int[4] { 600000,  720000, 850000, 950000 };
 
     public void UpdateInput()
     {
         for (int i = 0; i < KeyConfig.Length; i++) isOnKey[i] = Input.GetKey(KeyConfig[i]);
     }
+
 
     public class Select2Play
     {
@@ -36,10 +36,9 @@ public class MainRoot : MonoBehaviour {
         public int MaxCombo;
         public int AllTarget;
         public int SkinScore;
+        public int BonusScore; 
         public int[] breakdown;
     }
-
-
 
     //六角形系統
     [SerializeField]
