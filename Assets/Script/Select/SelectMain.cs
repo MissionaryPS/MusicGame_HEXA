@@ -6,6 +6,7 @@ using System;
 
 public class SelectMain : MainRoot {
 
+    //JSON読み込み用クラス
     [Serializable]
     public class MusicList
     {

@@ -57,6 +57,4 @@ public class ButtonManager : SelectMain {
             Button.GetComponent<MusicButton>().ChangeDifficulty(difficulty);
     }
 
-
-
 }

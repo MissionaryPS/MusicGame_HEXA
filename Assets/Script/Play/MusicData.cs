@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using System.Linq;
+using UnityEngine.Networking;
 
 public class MusicData : PlayMain {
 
@@ -18,13 +17,10 @@ public class MusicData : PlayMain {
     {
         Debug.Log("LoadAudioClip FileName:" + FileName);
         string path = Application.dataPath + "/Resources/" + FileName + "/" + FileName + ".wav";
-        using (var wwwMusic = new WWW("file:///" + path))
+        using (var wwwMusic = UnityWebRequestMultimedia.GetAudioClip("file:///" + path,AudioType.WAV))
         {
-            yield return wwwMusic;
-            Debug.Log(path);
-            Debug.Log(wwwMusic.isDone);
-            Debug.Log(wwwMusic.url);
-            manager.music.clip = wwwMusic.GetAudioClip(false, true);
+            yield return wwwMusic.SendWebRequest();
+            manager.music.clip = DownloadHandlerAudioClip.GetContent(wwwMusic);
             Debug.Log(manager.music.clip.loadState);
         }
         yield break;
@@ -34,11 +30,12 @@ public class MusicData : PlayMain {
     public IEnumerator LoadJsonMap(string FilePath)
     {
         Debug.Log("LoadJson FilePath:" + FilePath);
-        using (var www = new WWW("file:///" + Application.dataPath + "/Resources/" + FilePath))
+        using (var www = new UnityWebRequest("file:///" + Application.dataPath + "/Resources/" + FilePath))
         {
-            yield return www;
-            Debug.Log(www.text);
-            manager.mapdata = JsonUtility.FromJson<Data>(www.text);
+            www.downloadHandler = new DownloadHandlerBuffer();
+            yield return www.SendWebRequest();
+            Debug.Log(www.downloadHandler.text);
+            manager.mapdata = JsonUtility.FromJson<Data>(www.downloadHandler.text);
         }
         yield break;
     }

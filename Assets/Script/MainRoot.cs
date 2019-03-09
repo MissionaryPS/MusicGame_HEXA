@@ -46,16 +46,9 @@ public class MainRoot : MonoBehaviour {
 
     public GameObject CreateHexagon(Vector3 center, float radius)
     {
-        List<int> index = new List<int>();
-        for (int i = 1; i <= 6; i++)
-        {
-            index.Add(0);
-            index.Add(i);
-            index.Add((i + 1 <= 6) ? i + 1 : 1);
-        }
         var mesh = new Mesh();
         mesh.vertices = CalcVertices(center, radius, 6).ToArray();
-        mesh.triangles = index.ToArray();
+        mesh.triangles = CalcIndex(6).ToArray();
         GameObject Hexagon = Instantiate(HexBase) as GameObject;
         Hexagon.GetComponent<MeshFilter>().sharedMesh = mesh;
 
@@ -74,6 +67,18 @@ public class MainRoot : MonoBehaviour {
             vertices.Add(center + new Vector3(x, y, 0));
         }
         return vertices;
+    }
+
+    public List<int> CalcIndex(int vertNum)
+    {
+        List<int> index = new List<int>();
+        for (int i = 1; i <= vertNum; i++)
+        {
+            index.Add(0);
+            index.Add(i);
+            index.Add((i + 1 <= vertNum) ? i + 1 : 1);
+        }
+        return index;
     }
 
     // Update is called once per frame
