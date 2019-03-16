@@ -16,7 +16,7 @@ public class CanvasManager : SelectMain {
 
     public void SetUp (int center, int difficulty, MusicList list) {
         musicList = list;
-        foreach (Music music in musicList.music) Debug.Log(music.title+music.difficulty[0].Level);
+        foreach (MusicProperty music in musicList.music) Debug.Log(music.title+music.difficulty[0].Level);
         ChangeMusic(center, difficulty);
     }
 

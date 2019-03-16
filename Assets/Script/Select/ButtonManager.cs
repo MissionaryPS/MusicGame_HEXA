@@ -25,7 +25,7 @@ public class ButtonManager : SelectMain {
             MusicButton[i] = Instantiate(HexBase) as GameObject;
             MusicButton[i].GetComponent<MusicButton>().SetUpButton(i, center, devide, HexRadius, CircleRadius, difficulty);
         }
-
+        
         //menubutton
         float HexCenterDistance = HexRadius * Mathf.Sin(60 * Mathf.Deg2Rad) * 2;
         GameObject[] MenuButton = new GameObject[4];

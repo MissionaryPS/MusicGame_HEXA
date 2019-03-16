@@ -17,7 +17,7 @@ public class MusicData : PlayMain {
     {
         Debug.Log("LoadAudioClip FileName:" + FileName);
         string path = Application.dataPath + "/Resources/" + FileName + "/" + FileName + ".wav";
-        using (var wwwMusic = UnityWebRequestMultimedia.GetAudioClip("file:///" + path,AudioType.WAV))
+        using (var wwwMusic = UnityWebRequestMultimedia.GetAudioClip(path, AudioType.WAV))
         {
             yield return wwwMusic.SendWebRequest();
             manager.music.clip = DownloadHandlerAudioClip.GetContent(wwwMusic);
@@ -30,7 +30,7 @@ public class MusicData : PlayMain {
     public IEnumerator LoadJsonMap(string FilePath)
     {
         Debug.Log("LoadJson FilePath:" + FilePath);
-        using (var www = new UnityWebRequest("file:///" + Application.dataPath + "/Resources/" + FilePath))
+        using (var www = new UnityWebRequest(Application.dataPath + "/Resources/" + FilePath))
         {
             www.downloadHandler = new DownloadHandlerBuffer();
             yield return www.SendWebRequest();

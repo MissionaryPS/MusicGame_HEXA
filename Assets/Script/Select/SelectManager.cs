@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
 public class SelectManager : SelectMain {
 
@@ -28,8 +29,24 @@ public class SelectManager : SelectMain {
     IEnumerator enumerator (){
         yield return StartCoroutine("LoadList");
         Debug.Log(musicList.music.Length + "musics load");
+
         canvas.SetUp(center, difficulty, musicList);
         buttonManager.SetUp(center, difficulty, musicList);
+
+        yield return StartCoroutine("SelectProcess");
+        MusicProperty pass = musicList.music[center - 1];
+        GameObject carry = Instantiate(carrier) as GameObject;
+        carry.name = "carrier";
+        carry.GetComponent<Carrier>().PassSelect(difficulty, pass.difficulty[difficulty].Level, pass.title, pass.artist, pass.FileName);
+        SceneManager.LoadScene("PlayGame");
+
+    }
+
+    
+
+
+    IEnumerator SelectProcess()
+    {
         Debug.Log("select process start");
         while (true)
         {
@@ -53,14 +70,11 @@ public class SelectManager : SelectMain {
             }
             if (!(isOnKey[6]) && Input.GetKey(KeyConfig[6]))
             {
+                //決定
                 if (center != 0 && center != musicList.music.Length + 1)
                 {
                     Debug.Log("ここでゲームプレイに移る処理");
-                    Music pass = musicList.music[center - 1];
-                    GameObject carry = Instantiate(carrier) as GameObject;
-                    carry.name = "carrier";
-                    carry.GetComponent<Carrier>().PassSelect(difficulty, pass.difficulty[difficulty].Level, pass.title, pass.artist, pass.FileName);
-                    SceneManager.LoadScene("PlayGame");
+                    yield break;
                 }
                 else
                 {
@@ -72,26 +86,31 @@ public class SelectManager : SelectMain {
             UpdateInput();
             yield return new WaitForSeconds(fps);
         }
+
     }
 
     IEnumerator LoadList()
     {
-        using (WWW www = new WWW("file:///" + Application.dataPath + "/Resources/MusicList.json"))
+        using (var www = new UnityWebRequest(Application.dataPath + "/Resources/MusicList.json"))
         {
-            yield return www;
+            www.downloadHandler = new DownloadHandlerBuffer();
+            yield return www.SendWebRequest();
             Debug.Log(www.url);
             Debug.Log(www.isDone);
-            Debug.Log(www.text);
-            yield return musicList = JsonUtility.FromJson<MusicList>(www.text);
+            Debug.Log(www.downloadHandler.text);
+            yield return musicList = JsonUtility.FromJson<MusicList>(www.downloadHandler.text);
         }
         yield break;
     }
 
-    private MusicList SortList(MusicList musicList, string type, bool reverse)
+    private List<MusicProperty> SortList(MusicList musicList, int sortMode, bool reverse)
     {
         //実装終わってない
-        MusicList retList = musicList;
-
+        List<MusicProperty> retList = new List<MusicProperty>();
+        switch (sortMode)
+        {
+            
+        }
         return retList;
     }
 

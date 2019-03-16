@@ -10,11 +10,11 @@ public class SelectMain : MainRoot {
     [Serializable]
     public class MusicList
     {
-        public Music[] music;
+        public MusicProperty[] music;
     }
 
     [Serializable]
-    public class Music
+    public class MusicProperty
     {
         public string title;
         public string artist;
@@ -30,6 +30,12 @@ public class SelectMain : MainRoot {
         public int AllTarget;
     }
 
+    public class ButtonProperty
+    {
+        public GameObject button;
+        public int dataIndex;
+        public int difficulty;
+    }
 
 
 }
